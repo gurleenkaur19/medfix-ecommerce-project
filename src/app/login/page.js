@@ -15,9 +15,8 @@ const initialFormdata = {
 
 export default function Login() {
   const [formData, setFormData] = useState(initialFormdata);
-  const context = useContext(GlobalContext); // Access the context as an object
+  const context = useContext(GlobalContext);
 
-  // Now, access the needed values from the context object
   const isAuthUser = context.isAuthUser;
   const setIsAuthUser = context.setIsAuthUser;
   const user = context.user;

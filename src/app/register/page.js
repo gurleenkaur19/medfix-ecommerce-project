@@ -5,20 +5,20 @@ import InputComponent from "../../components/FormElements/InputComponent";
 import SelectComponent from "../../components/FormElements/SelectComponent";
 import { useState } from "react";
 import { registerNewUser } from "../../services/register/index";
+import { useRouter } from "next/navigation";
 
-const isRegistered = false;
-
+const initialFormData = {
+  name: "",
+  email: "",
+  password: "",
+  role: "customer",
+};
 export default function Register() {
-  const initialFormData = {
-    name: "",
-    email: "",
-    password: "",
-    role: "customer",
-  };
   const [formData, setFormData] = useState(initialFormData);
-
+  const [isRegistered, setIsRegistered] = useState(false);
   const [passwordError, setPasswordError] = useState(null);
   const [emailError, setemailError] = useState(null);
+  const router = useRouter();
 
   console.log(formData);
 
@@ -56,6 +56,11 @@ export default function Register() {
     }
 
     const data = await registerNewUser(formData);
+    if (data.success) {
+      setIsRegistered(true);
+    } else {
+      setFormData(initialFormData);
+    }
     console.log(data);
   }
 
@@ -82,6 +87,7 @@ export default function Register() {
                   transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide
                   bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white 
                   py-2 px-4 border border-red-500 hover:border-transparent rounded"
+                  onClick={() => router.push("/login")}
                 >
                   Login
                 </button>
