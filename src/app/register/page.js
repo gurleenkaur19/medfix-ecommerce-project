@@ -18,6 +18,7 @@ export default function Register() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [passwordError, setPasswordError] = useState(null);
   const [emailError, setemailError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const router = useRouter();
 
   console.log(formData);
@@ -55,13 +56,17 @@ export default function Register() {
       return;
     }
 
-    const data = await registerNewUser(formData);
-    if (data.success) {
-      setIsRegistered(true);
-    } else {
-      setFormData(initialFormData);
+    try {
+      const data = await registerNewUser(formData);
+      if (data.success) {
+        setIsRegistered(true);
+      } else {
+        console.log(data.message);
+        setErrorMessage(data.message);
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
     }
-    console.log(data);
   }
 
   return (
@@ -145,6 +150,9 @@ export default function Register() {
                   >
                     Register
                   </button>
+                  {errorMessage && (
+                    <div className="text-red-500 text-sm">{errorMessage}</div>
+                  )}
                 </div>
               )}
             </div>
