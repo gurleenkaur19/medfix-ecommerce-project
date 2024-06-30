@@ -70,7 +70,7 @@ export default function Register() {
   }
 
   return (
-    <div className="bg-white relative text-gray-900">
+    <div className="bg-white relative text-gray-900 h-screen overflow-hidden">
       <div className="flex flex-col items-center justify-between pt-0 pr-10 pb-0 pl-10 mt-8 mr-auto xl:px-5 lg:flex-row ">
         <div className="flex flex-col justify-center items-center w-full pr-10 pl-10 lg:flex-row">
           <div className="w-full mt-10 mr-0 mb-0 ml-0 relative max-w-2xl lg:mt-0 lg:w-5/12">
@@ -86,6 +86,11 @@ export default function Register() {
                   ? "Registration Successfull !"
                   : "Sign up for an account"}
               </p>
+              <div className="font-semibold mt-2 text-lg">
+                {errorMessage && (
+                  <div className="text-red-500 text-sm">{errorMessage}</div>
+                )}
+              </div>
               {isRegistered ? (
                 <button
                   className="inline-flex w-full items-center justify-center  px-6 py-4 text-lg 
@@ -150,11 +155,17 @@ export default function Register() {
                   >
                     Register
                   </button>
-                  {errorMessage && (
-                    <div className="text-red-500 text-sm">{errorMessage}</div>
-                  )}
                 </div>
               )}
+              <div className="">
+                Already Registered??{" "}
+                <span
+                  className="text-red-500 cursor-pointer font-semibold "
+                  onClick={() => router.push("/login")}
+                >
+                  Login
+                </span>
+              </div>
             </div>
           </div>
         </div>
