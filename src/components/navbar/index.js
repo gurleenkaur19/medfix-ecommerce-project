@@ -95,10 +95,17 @@ function NavBar() {
               )
             ) : null}
 
-            {!isAuthUser || user?.role === "admin" ? (
+            {!isAuthUser ? (
               <button
                 className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
-                onClick={() => router.push(registrationRoute)}
+                onClick={() => router.push("/register")}
+              >
+                Register
+              </button>
+            ) : user?.role === "admin" ? (
+              <button
+                className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+                onClick={() => router.push("/adminRegister")}
               >
                 Register
               </button>
