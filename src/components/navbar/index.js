@@ -57,6 +57,10 @@ function NavBar() {
     localStorage.clear();
     router.push("/");
   }
+  let registrationRoute = "/register"; // Default route for clients and logged-out users
+  if (user?.role === "admin") {
+    registrationRoute = "/adminRegister"; // Admins get a different route
+  }
 
   return (
     <>
@@ -90,16 +94,26 @@ function NavBar() {
                 </button>
               )
             ) : null}
-            {isAuthUser ? (
+
+            {!isAuthUser || user?.role === "admin" ? (
               <button
                 className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+                onClick={() => router.push(registrationRoute)}
+              >
+                Register
+              </button>
+            ) : null}
+            {/* Conditional rendering for showing the Login/Logout button */}
+            {isAuthUser ? (
+              <button
+                className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-700 hover:border-transparent rounded"
                 onClick={handleLogout}
               >
                 Logout
               </button>
             ) : (
               <button
-                className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+                className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-700 hover:border-transparent rounded"
                 onClick={() => router.push("/login")}
               >
                 Login
