@@ -1,17 +1,18 @@
+// Updated Register component without SelectComponent
+
 "use client";
 
 import { registrationFormControls } from "@/utils";
 import InputComponent from "../../components/FormElements/InputComponent";
-import SelectComponent from "../../components/FormElements/SelectComponent"; // Resolved conflict by including SelectComponent
 import { useState } from "react";
 import { registerNewUser } from "../../services/register/index";
-import { useRouter } from "next/navigation"; // Corrected import from "next/navigation" to "next/router"
+import { useRouter } from "next/navigation"; // Corrected import
 
 const initialFormData = {
   name: "",
   email: "",
   password: "",
-  role: "customer",
+  role: "customer", // This field will not be changeable by the user in the UI anymore
 };
 
 export default function Register() {
@@ -97,47 +98,35 @@ export default function Register() {
                 </button>
               ) : (
                 <div className="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
-                  {registrationFormControls.map((controlItem) =>
-                    controlItem.componentType === "input" ? (
-                      <div key={controlItem.id}>
-                        <InputComponent
-                          type={controlItem.type}
-                          placeholder={controlItem.placeholder}
-                          label={controlItem.label}
-                          key={controlItem.id}
-                          onChange={(event) => {
-                            setFormData({
-                              ...formData,
-                              [controlItem.id]: event.target.value,
-                            });
-                          }}
-                          value={formData[controlItem.id]}
-                        />
-                        {controlItem.id === "password" && passwordError ? (
-                          <span className="text-red-500 text-sm">
-                            {passwordError}
-                          </span>
-                        ) : null}
-                        {controlItem.id === "email" && emailError ? (
-                          <span className="text-red-500 text-sm">
-                            {emailError}
-                          </span>
-                        ) : null}
-                      </div>
-                    ) : controlItem.componentType === "select" ? (
-                      <SelectComponent
-                        options={controlItem.options}
-                        label={controlItem.label}
-                        key={controlItem.id}
-                        onChange={(event) => {
-                          setFormData({
-                            ...formData,
-                            [controlItem.id]: event.target.value,
-                          });
-                        }}
-                        value={formData[controlItem.id]}
-                      />
-                    ) : null
+                  {registrationFormControls.map(
+                    (controlItem) =>
+                      controlItem.componentType === "input" ? (
+                        <div key={controlItem.id}>
+                          <InputComponent
+                            type={controlItem.type}
+                            placeholder={controlItem.placeholder}
+                            label={controlItem.label}
+                            key={controlItem.id}
+                            onChange={(event) => {
+                              setFormData({
+                                ...formData,
+                                [controlItem.id]: event.target.value,
+                              });
+                            }}
+                            value={formData[controlItem.id]}
+                          />
+                          {controlItem.id === "password" && passwordError ? (
+                            <span className="text-red-500 text-sm">
+                              {passwordError}
+                            </span>
+                          ) : null}
+                          {controlItem.id === "email" && emailError ? (
+                            <span className="text-red-500 text-sm">
+                              {emailError}
+                            </span>
+                          ) : null}
+                        </div>
+                      ) : null // Removed SelectComponent related code
                   )}
                   <button
                     className=" disabled:opacity-50 inline-flex w-full items-center justify-center  px-6 py-4 text-lg
