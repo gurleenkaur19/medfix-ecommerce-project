@@ -25,6 +25,7 @@ export const navOptions = [
     path: "/product/listing/beauty",
   },
 ];
+
 export const adminNavOptions = [
   {
     id: "adminListing",
@@ -78,6 +79,7 @@ export const registrationFormControls = [
     ],
   },
 ];
+
 export const loginFormControls = [
   {
     id: "email",
@@ -94,8 +96,6 @@ export const loginFormControls = [
     componentType: "input",
   },
 ];
-<<<<<<< HEAD
-=======
 
 export const adminAddProductformControls = [
   {
@@ -172,19 +172,3 @@ export const adminAddProductformControls = [
     componentType: "input",
   },
 ];
-
-// export const AvailableSizes = [
-//   {
-//     id: "s",
-//     label: "S",
-//   },
-//   {
-//     id: "m",
-//     label: "M",
-//   },
-//   {
-//     id: "l",
-//     label: "L",
-//   },
-// ];
->>>>>>> origin/Razieh

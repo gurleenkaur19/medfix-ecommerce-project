@@ -21,11 +21,8 @@ export default function Login() {
   const setIsAuthUser = context.setIsAuthUser;
   const user = context.user;
   const setUser = context.setUser;
-<<<<<<< HEAD
-=======
-  const componentLevelLoader = context.componentLevelLoader; 
-  const setComponentLevelLoader = context.setComponentLevelLoader;
->>>>>>> origin/Razieh
+  // const componentLevelLoader = context.componentLevelLoader;
+  // const setComponentLevelLoader = context.setComponentLevelLoader;
 
   const router = useRouter();
   console.log(formData);
@@ -40,10 +37,7 @@ export default function Login() {
   }
 
   async function handleLogin() {
-<<<<<<< HEAD
-=======
-    setComponentLevelLoader({loading:true, id:''});
->>>>>>> origin/Razieh
+    // setComponentLevelLoader({ loading: true, id: "" });
     const res = await login(formData);
     console.log(res);
 
@@ -53,15 +47,9 @@ export default function Login() {
       setFormData(initialFormdata);
       Cookies.set("token", res?.finalData?.token);
       localStorage.setItem("user", JSON.stringify(res?.finalData?.user));
-<<<<<<< HEAD
     } else {
       setIsAuthUser(false);
-=======
-      setComponentLevelLoader({loading:false, id:''});
-    } else {
-      setIsAuthUser(false);
-      setComponentLevelLoader({loading:false, id:''});
->>>>>>> origin/Razieh
+      // setComponentLevelLoader({ loading: false, id: "" });
     }
   }
   console.log(isAuthUser, user);
@@ -114,18 +102,14 @@ export default function Login() {
                   disabled={!isValidForm()}
                   onClick={handleLogin}
                 >
-<<<<<<< HEAD
-                  Login
-=======
-                 {/* {
+                  {/* {
                   componentLevelLoader && componentLevelLoader.loading ? <componentLevelLoader
                   text={"Logging in..."}
                   color={"#ffffff"}
                   loading={componentLevelLoader && componentLevelLoader.loading}
                   /> : "Login"
                  } */}
-                 Login
->>>>>>> origin/Razieh
+                  Login
                 </button>
                 <div className="flex flex-col gap-2">
                   <p>
@@ -146,10 +130,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-<<<<<<< HEAD
-=======
-      {/* <Notification /> */}
->>>>>>> origin/Razieh
     </div>
   );
 }

@@ -3,20 +3,12 @@ import React, { Fragment, useContext } from "react";
 import { adminNavOptions, navOptions } from "../../utils/index";
 import { GlobalContext } from "../../context/index";
 import CommonModal from "../CommonModal";
-<<<<<<< HEAD
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
 const isAdminView = false;
 
 function NavItems({ isModelView = false }) {
-=======
-import { usePathname, useRouter } from "next/navigation";
-import Cookies from "js-cookie";
-
-
-function NavItems({ isModelView = false , isAdminView , router}) {
->>>>>>> origin/Razieh
   return (
     <div
       className={`items-center justify-between w-full md:flex md:w-auto text-slate-950 ${
@@ -34,10 +26,6 @@ function NavItems({ isModelView = false , isAdminView , router}) {
               <li
                 className="cursor-pointer block py-2 pl-3 pr-4 text-gray-900 rounded md:p-0"
                 key={items.id}
-<<<<<<< HEAD
-=======
-                onClick={() => router.push(items.path)}
->>>>>>> origin/Razieh
               >
                 {items.label}
               </li>
@@ -46,10 +34,6 @@ function NavItems({ isModelView = false , isAdminView , router}) {
               <li
                 className="cursor-pointer block py-2 pl-3 pr-4 text-gray-900 rounded md:p-0"
                 key={items.id}
-<<<<<<< HEAD
-=======
-                onClick={() => router.push(items.path)}
->>>>>>> origin/Razieh
               >
                 {items.label}
               </li>
@@ -63,11 +47,6 @@ function NavBar() {
   const { showNavModal, setShowNavModal } = useContext(GlobalContext);
   const { user, isAuthUser, setIsAuthUser, setUser } =
     useContext(GlobalContext);
-<<<<<<< HEAD
-=======
-
-  const pathName = usePathname();
->>>>>>> origin/Razieh
   const router = useRouter();
 
   console.log(user, isAuthUser, "navbar");
@@ -78,26 +57,16 @@ function NavBar() {
     localStorage.clear();
     router.push("/");
   }
-<<<<<<< HEAD
   let registrationRoute = "/register"; // Default route for clients and logged-out users
   if (user?.role === "admin") {
     registrationRoute = "/adminRegister"; // Admins get a different route
   }
-=======
-
-  const isAdminView = pathName.includes("admin-view");
-
->>>>>>> origin/Razieh
 
   return (
     <>
       <nav className="bg-white fixed w-full z-20 top-0 left-0 border-b border-gray-200">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-<<<<<<< HEAD
           <div className="flex items-center cursor-pointer">
-=======
-          <div onClick={() => router.push('/')} className="flex items-center cursor-pointer">
->>>>>>> origin/Razieh
             <img src="/logo.png" className="w-10 h-10" alt="logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap text-red-600 font-serif	">
               MedFix
@@ -116,24 +85,15 @@ function NavBar() {
             ) : null}
             {user?.role === "admin" ? (
               isAdminView ? (
-<<<<<<< HEAD
                 <button className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
                   Client View
                 </button>
               ) : (
                 <button className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
-=======
-                <button  onClick={()=>{ router.push("/")}} className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
-                  Client View
-                </button>
-              ) : (
-                <button onClick={() => { console.log('Navigating to admin view'); router.push("/admin-view")}} className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
->>>>>>> origin/Razieh
                   Admin View
                 </button>
               )
             ) : null}
-<<<<<<< HEAD
 
             {!isAuthUser || user?.role === "admin" ? (
               <button
@@ -147,22 +107,13 @@ function NavBar() {
             {isAuthUser ? (
               <button
                 className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-700 hover:border-transparent rounded"
-=======
-            {isAuthUser ? (
-              <button
-                className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
->>>>>>> origin/Razieh
                 onClick={handleLogout}
               >
                 Logout
               </button>
             ) : (
               <button
-<<<<<<< HEAD
                 className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-700 hover:border-transparent rounded"
-=======
-                className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
->>>>>>> origin/Razieh
                 onClick={() => router.push("/login")}
               >
                 Login
@@ -192,20 +143,12 @@ function NavBar() {
               </svg>
             </button>
           </div>
-<<<<<<< HEAD
           <NavItems />
-=======
-          <NavItems router={router} isAdminView={isAdminView}/>
->>>>>>> origin/Razieh
         </div>
       </nav>
       <CommonModal
         showModalTitle={false}
-<<<<<<< HEAD
         mainContent={<NavItems isModelView={true} />}
-=======
-        mainContent={<NavItems router={router} isModelView={true} isAdminView={isAdminView}/>}
->>>>>>> origin/Razieh
         show={showNavModal}
         setShow={setShowNavModal}
       />

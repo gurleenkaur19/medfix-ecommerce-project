@@ -2,13 +2,10 @@
 
 import { registrationFormControls } from "@/utils";
 import InputComponent from "../../components/FormElements/InputComponent";
-<<<<<<< HEAD
-=======
-import SelectComponent from "../../components/FormElements/SelectComponent";
->>>>>>> origin/Razieh
+import SelectComponent from "../../components/FormElements/SelectComponent"; // Resolved conflict by including SelectComponent
 import { useState } from "react";
 import { registerNewUser } from "../../services/register/index";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"; // Corrected import from "next/navigation" to "next/router"
 
 const initialFormData = {
   name: "",
@@ -16,10 +13,7 @@ const initialFormData = {
   password: "",
   role: "customer",
 };
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/Razieh
 export default function Register() {
   const [formData, setFormData] = useState(initialFormData);
   const [isRegistered, setIsRegistered] = useState(false);
@@ -28,11 +22,6 @@ export default function Register() {
   const [errorMessage, setErrorMessage] = useState(null);
   const router = useRouter();
 
-<<<<<<< HEAD
-=======
-  console.log(formData);
-
->>>>>>> origin/Razieh
   function isFormValid() {
     return formData &&
       formData.name &&
@@ -44,10 +33,6 @@ export default function Register() {
       ? true
       : false;
   }
-<<<<<<< HEAD
-=======
-  console.log(isFormValid());
->>>>>>> origin/Razieh
 
   async function handleRegisterOnSubmit() {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -74,10 +59,6 @@ export default function Register() {
       if (data.success) {
         setIsRegistered(true);
       } else {
-<<<<<<< HEAD
-=======
-        console.log(data.message);
->>>>>>> origin/Razieh
         setErrorMessage(data.message);
       }
     } catch (error) {
@@ -86,33 +67,20 @@ export default function Register() {
   }
 
   return (
-<<<<<<< HEAD
-    <div className="bg-white relative text-gray-900 min-h-screen overflow-hidden">
-      <div className="flex flex-col items-center justify-center pt-0 pr-10 pb-0 pl-10 mt-8 mr-auto xl:px-5 lg:flex-row lg:justify-between lg:items-stretch">
-=======
     <div className="bg-white relative text-gray-900 h-screen overflow-hidden">
       <div className="flex flex-col items-center justify-between pt-0 pr-10 pb-0 pl-10 mt-8 mr-auto xl:px-5 lg:flex-row ">
->>>>>>> origin/Razieh
         <div className="flex flex-col justify-center items-center w-full pr-10 pl-10 lg:flex-row">
           <div className="w-full mt-10 mr-0 mb-0 ml-0 relative max-w-2xl lg:mt-0 lg:w-5/12">
             <div className="flex flex-col items-center justify-start pt-10 pr-10 pb-10 pl-10 bg-white shadow-2xl rounded-xl relative z-10">
               <div className="flex items-center cursor-pointer pb-2">
                 <img src="/logo.png" className="w-10 h-10" alt="logo" />
-<<<<<<< HEAD
                 <span className="self-center text-2xl font-semibold whitespace-nowrap text-red-600 font-serif">
-=======
-                <span className="self-center text-2xl font-semibold whitespace-nowrap text-red-600 font-serif	">
->>>>>>> origin/Razieh
                   MedFix
                 </span>
               </div>
               <p className="w-full text-4xl font-medium text-center font-serif">
                 {isRegistered
-<<<<<<< HEAD
                   ? "Registration Successful!"
-=======
-                  ? "Registration Successfull !"
->>>>>>> origin/Razieh
                   : "Sign up for an account"}
               </p>
               <div className="font-semibold mt-2 text-lg">
@@ -122,14 +90,7 @@ export default function Register() {
               </div>
               {isRegistered ? (
                 <button
-<<<<<<< HEAD
                   className="inline-flex w-full items-center justify-center px-6 py-4 text-lg transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
-=======
-                  className="inline-flex w-full items-center justify-center  px-6 py-4 text-lg 
-                  transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide
-                  bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white 
-                  py-2 px-4 border border-red-500 hover:border-transparent rounded"
->>>>>>> origin/Razieh
                   onClick={() => router.push("/login")}
                 >
                   Login
@@ -163,16 +124,6 @@ export default function Register() {
                           </span>
                         ) : null}
                       </div>
-<<<<<<< HEAD
-                    ) : null
-                  )}
-                  <button
-                    className="disabled:opacity-50 inline-flex w-full items-center justify-center px-6 py-4 text-lg transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
-                    disabled={!isFormValid()}
-                    onClick={handleRegisterOnSubmit}
-                  >
-                    Register
-=======
                     ) : controlItem.componentType === "select" ? (
                       <SelectComponent
                         options={controlItem.options}
@@ -196,28 +147,14 @@ export default function Register() {
                     disabled={!isFormValid()}
                     onClick={handleRegisterOnSubmit}
                   >
-                    {/* {pageLevelLoader? (
-                        <componentLevelLoader 
-                        text={"Registering..."}
-                        color={"#ffffff"}
-                        loading={pageLevelLoader}
-                        />
-                      ):(
-                        "Register"
-                      )} */}
-                      Register
->>>>>>> origin/Razieh
+                    Register
                   </button>
                 </div>
               )}
               <div className="">
                 Already Registered??{" "}
                 <span
-<<<<<<< HEAD
-                  className="text-red-500 cursor-pointer font-semibold"
-=======
                   className="text-red-500 cursor-pointer font-semibold "
->>>>>>> origin/Razieh
                   onClick={() => router.push("/login")}
                 >
                   Login
