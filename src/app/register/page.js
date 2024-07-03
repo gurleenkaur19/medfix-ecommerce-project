@@ -36,6 +36,7 @@ export default function Register() {
   }
 
   async function handleRegisterOnSubmit() {
+    setErrorMessage(null);
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     let errors = false;
@@ -86,7 +87,12 @@ export default function Register() {
               </p>
               <div className="font-semibold mt-2 text-lg">
                 {errorMessage && (
-                  <div className="text-red-500 text-sm">{errorMessage}</div>
+                  <div
+                    className="w-full bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                    role="alert"
+                  >
+                    <span className="block sm:inline">{errorMessage}</span>
+                  </div>
                 )}
               </div>
               {isRegistered ? (

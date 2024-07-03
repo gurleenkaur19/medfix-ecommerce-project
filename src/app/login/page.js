@@ -15,6 +15,7 @@ const initialFormdata = {
 
 export default function Login() {
   const [formData, setFormData] = useState(initialFormdata);
+  const [errorMessage, setErrorMessage] = useState();
   const context = useContext(GlobalContext);
 
   const isAuthUser = context.isAuthUser;
@@ -37,6 +38,7 @@ export default function Login() {
   }
 
   async function handleLogin() {
+    setErrorMessage(null);
     // setComponentLevelLoader({ loading: true, id: "" });
     const res = await login(formData);
     console.log(res);
@@ -48,6 +50,8 @@ export default function Login() {
       Cookies.set("token", res?.finalData?.token);
       localStorage.setItem("user", JSON.stringify(res?.finalData?.user));
     } else {
+      console.log(res.message);
+      setErrorMessage(res.message);
       setIsAuthUser(false);
       // setComponentLevelLoader({ loading: false, id: "" });
     }
@@ -75,6 +79,14 @@ export default function Login() {
               <p className="w-full text-4xl font-medium text-center font-serif">
                 Login
               </p>
+              {errorMessage && (
+                <div
+                  className="w-full bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                  role="alert"
+                >
+                  <span className="block sm:inline">{errorMessage}</span>
+                </div>
+              )}
 
               <div className="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
                 {loginFormControls.map((controlItem) =>
