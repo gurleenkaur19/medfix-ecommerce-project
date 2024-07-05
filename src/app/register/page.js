@@ -7,6 +7,9 @@ import InputComponent from "../../components/FormElements/InputComponent";
 import { useState } from "react";
 import { registerNewUser } from "../../services/register/index";
 import { useRouter } from "next/navigation"; // Corrected import
+import { GlobalContext } from "@/context";
+import { useContext } from "react";
+import ComponentLevelLoader from "@/components/Loader/componentLevelLoader";
 
 const initialFormData = {
   name: "",
@@ -22,6 +25,9 @@ export default function Register() {
   const [emailError, setemailError] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const router = useRouter();
+  const context = useContext(GlobalContext);
+  const componentLevelLoader = context.componentLevelLoader;
+  const setComponentLevelLoader = context.setComponentLevelLoader;
 
   function isFormValid() {
     return formData &&
@@ -37,6 +43,7 @@ export default function Register() {
 
   async function handleRegisterOnSubmit() {
     setErrorMessage(null);
+    setComponentLevelLoader({ loading: true, id: "" });
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     let errors = false;
@@ -60,11 +67,14 @@ export default function Register() {
       const data = await registerNewUser(formData);
       if (data.success) {
         setIsRegistered(true);
+        setComponentLevelLoader({ loading: false, id: "" });
       } else {
         setErrorMessage(data.message);
+        setComponentLevelLoader({ loading: false, id: "" });
       }
     } catch (error) {
       setErrorMessage(error.message);
+      setComponentLevelLoader({ loading: false, id: "" });
     }
   }
 
@@ -142,7 +152,17 @@ export default function Register() {
                     disabled={!isFormValid()}
                     onClick={handleRegisterOnSubmit}
                   >
-                    Register
+                    {componentLevelLoader && componentLevelLoader.loading ? (
+                      <ComponentLevelLoader
+                        text={"Registering..."}
+                        color={"#ffffff"}
+                        loading={
+                          componentLevelLoader && componentLevelLoader.loading
+                        }
+                      />
+                    ) : (
+                      "Register"
+                    )}
                   </button>
                 </div>
               )}

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/context";
 import Cookies from "js-cookie";
+import ComponentLevelLoader from "@/components/Loader/componentLevelLoader";
 
 const initialFormdata = {
   email: "",
@@ -22,8 +23,8 @@ export default function Login() {
   const setIsAuthUser = context.setIsAuthUser;
   const user = context.user;
   const setUser = context.setUser;
-  // const componentLevelLoader = context.componentLevelLoader;
-  // const setComponentLevelLoader = context.setComponentLevelLoader;
+  const componentLevelLoader = context.componentLevelLoader;
+  const setComponentLevelLoader = context.setComponentLevelLoader;
 
   const router = useRouter();
   console.log(formData);
@@ -39,7 +40,7 @@ export default function Login() {
 
   async function handleLogin() {
     setErrorMessage(null);
-    // setComponentLevelLoader({ loading: true, id: "" });
+    setComponentLevelLoader({ loading: true, id: "" });
     const res = await login(formData);
     console.log(res);
 
@@ -49,11 +50,12 @@ export default function Login() {
       setFormData(initialFormdata);
       Cookies.set("token", res?.finalData?.token);
       localStorage.setItem("user", JSON.stringify(res?.finalData?.user));
+      setComponentLevelLoader({ loading: false, id: "" });
     } else {
       console.log(res.message);
       setErrorMessage(res.message);
       setIsAuthUser(false);
-      // setComponentLevelLoader({ loading: false, id: "" });
+      setComponentLevelLoader({ loading: false, id: "" });
     }
   }
   console.log(isAuthUser, user);
@@ -114,14 +116,17 @@ export default function Login() {
                   disabled={!isValidForm()}
                   onClick={handleLogin}
                 >
-                  {/* {
-                  componentLevelLoader && componentLevelLoader.loading ? <componentLevelLoader
-                  text={"Logging in..."}
-                  color={"#ffffff"}
-                  loading={componentLevelLoader && componentLevelLoader.loading}
-                  /> : "Login"
-                 } */}
-                  Login
+                  {componentLevelLoader && componentLevelLoader.loading ? (
+                    <ComponentLevelLoader
+                      text={"Logging in..."}
+                      color={"#ffffff"}
+                      loading={
+                        componentLevelLoader && componentLevelLoader.loading
+                      }
+                    />
+                  ) : (
+                    "Login"
+                  )}
                 </button>
                 <div className="flex flex-col gap-2">
                   <p>
