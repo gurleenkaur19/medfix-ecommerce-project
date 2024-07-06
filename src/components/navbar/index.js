@@ -3,12 +3,10 @@ import React, { Fragment, useContext } from "react";
 import { adminNavOptions, navOptions } from "../../utils/index";
 import { GlobalContext } from "../../context/index";
 import CommonModal from "../CommonModal";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
-const isAdminView = false;
-
-function NavItems({ isModelView = false }) {
+function NavItems({ isModelView = false, isAdminView, router }) {
   return (
     <div
       className={`items-center justify-between w-full md:flex md:w-auto text-slate-950 ${
@@ -26,6 +24,7 @@ function NavItems({ isModelView = false }) {
               <li
                 className="cursor-pointer block py-2 pl-3 pr-4 text-gray-900 rounded md:p-0"
                 key={items.id}
+                onClick={() => router.push(items.path)}
               >
                 {items.label}
               </li>
@@ -34,6 +33,7 @@ function NavItems({ isModelView = false }) {
               <li
                 className="cursor-pointer block py-2 pl-3 pr-4 text-gray-900 rounded md:p-0"
                 key={items.id}
+                onClick={() => router.push(items.path)}
               >
                 {items.label}
               </li>
@@ -47,9 +47,11 @@ function NavBar() {
   const { showNavModal, setShowNavModal } = useContext(GlobalContext);
   const { user, isAuthUser, setIsAuthUser, setUser } =
     useContext(GlobalContext);
+  const pathName = usePathname();
   const router = useRouter();
 
   console.log(user, isAuthUser, "navbar");
+
   function handleLogout() {
     setIsAuthUser(false);
     setUser(null);
@@ -61,12 +63,16 @@ function NavBar() {
   if (user?.role === "admin") {
     registrationRoute = "/adminRegister"; // Admins get a different route
   }
+  const isAdminView = pathName.includes("admin-view");
 
   return (
     <>
       <nav className="bg-white fixed w-full z-20 top-0 left-0 border-b border-gray-200">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <div className="flex items-center cursor-pointer">
+          <div
+            onClick={() => router.push("/")}
+            className="flex items-center cursor-pointer"
+          >
             <img src="/logo.png" className="w-10 h-10" alt="logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap text-red-600 font-serif	">
               MedFix
@@ -85,11 +91,17 @@ function NavBar() {
             ) : null}
             {user?.role === "admin" ? (
               isAdminView ? (
-                <button className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
+                <button
+                  onClick={() => router.push("/")}
+                  className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+                >
                   Client View
                 </button>
               ) : (
-                <button className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
+                <button
+                  onClick={() => router.push("/admin-view")}
+                  className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+                >
                   Admin View
                 </button>
               )
@@ -150,12 +162,18 @@ function NavBar() {
               </svg>
             </button>
           </div>
-          <NavItems />
+          <NavItems router={router} isAdminView={isAdminView} />
         </div>
       </nav>
       <CommonModal
         showModalTitle={false}
-        mainContent={<NavItems isModelView={true} />}
+        mainContent={
+          <NavItems
+            router={router}
+            isModelView={true}
+            isAdminView={isAdminView}
+          />
+        }
         show={showNavModal}
         setShow={setShowNavModal}
       />

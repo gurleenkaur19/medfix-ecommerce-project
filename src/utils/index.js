@@ -172,3 +172,30 @@ export const adminAddProductformControls = [
     componentType: "input",
   },
 ];
+
+export const AvailablePackaging = [
+  {
+    id: "P1",
+    label: "1 Package",
+  },
+  {
+    id: "P2",
+    label: "2 Packages",
+  },
+  {
+    id: "set",
+    label: "Set",
+  },
+];
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyBGTFhKTHRrWWrnhocztCb9dWQ_P500pHQ",
+  authDomain: "next-js-ecommerce-34c3c.firebaseapp.com",
+  projectId: "next-js-ecommerce-34c3c",
+  storageBucket: "next-js-ecommerce-34c3c.appspot.com",
+  messagingSenderId: "224389133172",
+  appId: "1:224389133172:web:3e55d6420f33b3a3463221",
+  measurementId: "G-G1Q0RBRZVH",
+};
+
+export const firebaseStorageURL = "gs://next-js-ecommerce-34c3c.appspot.com";

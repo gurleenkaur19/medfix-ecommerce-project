@@ -1,12 +1,3 @@
-
-
-
-
-
 export default function AdminView() {
-  return (
-    <div>
-      <h1>Admin View</h1>
-    </div>
-  );
+  return <div>Admin View</div>;
 }
