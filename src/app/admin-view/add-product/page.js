@@ -21,8 +21,9 @@ import {
 import { useState } from "react";
 import { ref } from "firebase/storage";
 import { addNewProduct } from "@/services/product";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import ComponentLevelLoader from "@/components/Loader/componentLevelLoader";
 
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app, firebaseStorageURL);
@@ -71,6 +72,7 @@ export default function AdminAddNewProduct() {
   const { componentLevelLoader, setComponentLevelLoader } =
     useContext(GlobalContext);
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState();
 
   async function handleImage(event) {
     const extractImageURL = await helperForUploadingImageToFirebase(
@@ -102,23 +104,25 @@ export default function AdminAddNewProduct() {
   }
 
   async function handleAddProduct() {
+    setErrorMessage(null);
     setComponentLevelLoader({ loading: true, id: "" });
     const res = await addNewProduct(formData);
     console.log(res);
 
     if (res.success) {
       setComponentLevelLoader({ loading: false, id: "" });
-      toast.success(res.message, { position: toast.POSITION.TOP_RIGHT });
+      setErrorMessage(res.message);
+      // toast.success(res.message, { position: toast.POSITION.TOP_RIGHT });
 
       setFormData(initialFormData);
       setTimeout(() => {
         router.push("/admin-view/all-products");
-      });
+      }, 3000); // Added delay for better UX
     } else {
       setComponentLevelLoader({ loading: false, id: "" });
-      toast.error(res.message, { position: toast.POSITION.TOP_RIGHT });
-
-      setFormData(initialFormData);
+      setErrorMessage(res.message);
+      // toast.error(res.message, { position: toast.POSITION.TOP_RIGHT });
+      console.log(res.message);
     }
   }
   console.log(formData);
@@ -172,12 +176,20 @@ export default function AdminAddNewProduct() {
               />
             ) : null
           )}
+          {errorMessage && (
+            <div
+              className="w-full bg-red-100 border text-center border-red-400 text-red-700 px-4 py-3 rounded relative"
+              role="alert"
+            >
+              <span className="block sm:inline">{errorMessage}</span>
+            </div>
+          )}
           <button
             onClick={handleAddProduct}
             className="inline-flex w-full items-center justify-center bg-transparent hover:bg-red-500 text-red-600 hover:text-white border border-red-500 hover:border-transparent rounded px-6 py-4 text-lg  font-medium uppercase tracking-wide"
           >
             {componentLevelLoader && componentLevelLoader.loading ? (
-              <componentLevelLoader
+              <ComponentLevelLoader
                 text={"Adding Product..."}
                 color={"#ffffff"}
                 loading={componentLevelLoader && componentLevelLoader.loading}
