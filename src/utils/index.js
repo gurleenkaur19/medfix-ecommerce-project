@@ -138,6 +138,10 @@ export const adminAddProductformControls = [
         id: "baby-care",
         label: "Baby Care",
       },
+      {
+        id: "medicine",
+        label: "Medicine",
+      },
     ],
   },
   {
