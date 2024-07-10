@@ -8,7 +8,7 @@ export default function ProductButton() {
   return isAdminView ? (
     <>
       <button
-        className="mt-1.5 flex w-full justify-center bg-amber-500  text-black font-semibold  
+        className="flex w-full justify-center bg-amber-500  text-black font-semibold  
                 py-2 px-4 border rounded px-5 py-3 text-base font-medium uppercase tracking-wide"
       >
         Update
