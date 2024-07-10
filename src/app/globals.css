@@ -34,3 +34,18 @@ body::-webkit-scrollbar-thumb {
   background-color: rgb(255, 73, 73);
   outline: 1px solid rgb(255, 172, 172);
 }
+@keyframes animate_2 {
+  0% {
+    transform: translateY(250px);
+    filter: hue-rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(250px);
+    filter: hue-rotate(180deg);
+  }
+}

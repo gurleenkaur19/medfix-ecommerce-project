@@ -2,11 +2,7 @@
 import { usePathname } from "next/navigation";
 import NavBar from "@/components/navbar";
 
-export default function ClientLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ClientLayout({ children }) {
   const pathname = usePathname();
   const isAuthPage =
     pathname === "/login" ||
