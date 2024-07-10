@@ -15,7 +15,7 @@ export default function ProductButton() {
       </button>
       <button
         className="mt-1.5 flex w-full justify-center bg-orange-600  text-black font-semibold  
-                py-2 px-4 border rounded px-5 py-3 text-base uppercase tracking-wide"
+                py-2 px-4 border rounded px-5 py-3 text-base uppercase tracking-wide "
       >
         Delete
       </button>
@@ -27,5 +27,4 @@ export default function ProductButton() {
       </button>
     </>
   );
-  // </div>
 }

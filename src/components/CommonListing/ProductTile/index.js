@@ -2,14 +2,6 @@
 
 import React from "react";
 
-const truncateText = (text, wordLimit) => {
-  const words = text.split(" ");
-  if (words.length > wordLimit) {
-    return words.slice(0, wordLimit).join(" ") + "...";
-  }
-  return text;
-};
-
 export default function ProductTile({ item }) {
   return (
     <div>
@@ -30,13 +22,11 @@ export default function ProductTile({ item }) {
         )}
         <div className="my-4 mx-auto flex w-10/12 flex-col items-start justify-between">
           <div className="mb-2 h-24">
-            {" "}
-            {/* Adjust this height as needed */}
-            <h3 className="text-black font-semibold not-italic text-2xl">
-              {truncateText(item.name, 3)}
+            <h3 className="text-black font-semibold not-italic text-2xl break-words line-clamp-2">
+              {item.name}
             </h3>
-            <h3 className="text-gray-400 text-base">
-              {truncateText(item.description, 10)}
+            <h3 className="text-gray-400 text-base break-words line-clamp-3">
+              {item.description}
             </h3>
           </div>
           <div className="mt-8 flex">
