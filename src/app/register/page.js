@@ -6,7 +6,7 @@ import { registrationFormControls } from "@/utils";
 import InputComponent from "../../components/FormElements/InputComponent";
 import { useState } from "react";
 import { registerNewUser } from "../../services/register/index";
-import { useRouter } from "next/navigation"; // Corrected import
+import { useRouter } from "next/navigation";
 import { GlobalContext } from "@/context";
 import { useContext } from "react";
 import ComponentLevelLoader from "@/components/Loader/componentLevelLoader";
@@ -15,7 +15,7 @@ const initialFormData = {
   name: "",
   email: "",
   password: "",
-  role: "customer", // This field will not be changeable by the user in the UI anymore
+  role: "customer",
 };
 
 export default function Register() {

@@ -21,7 +21,6 @@ import {
 import { useState } from "react";
 import { ref } from "firebase/storage";
 import { addNewProduct } from "@/services/product";
-// import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import ComponentLevelLoader from "@/components/Loader/componentLevelLoader";
 
@@ -112,16 +111,14 @@ export default function AdminAddNewProduct() {
     if (res.success) {
       setComponentLevelLoader({ loading: false, id: "" });
       setErrorMessage(res.message);
-      // toast.success(res.message, { position: toast.POSITION.TOP_RIGHT });
 
       setFormData(initialFormData);
       setTimeout(() => {
         router.push("/admin-view/all-products");
-      }, 3000); // Added delay for better UX
+      }, 3000);
     } else {
       setComponentLevelLoader({ loading: false, id: "" });
       setErrorMessage(res.message);
-      // toast.error(res.message, { position: toast.POSITION.TOP_RIGHT });
       console.log(res.message);
     }
   }
@@ -200,7 +197,6 @@ export default function AdminAddNewProduct() {
           </button>
         </div>
       </div>
-      <Notification />
     </div>
   );
 }

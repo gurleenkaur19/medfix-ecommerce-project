@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <GlobalState>
-          <main className="flex min-h-screen flex-col mt-[80px]">
+          <main className="flex min-h-screen flex-col ">
             <ClientLayout>{children}</ClientLayout>
           </main>
         </GlobalState>

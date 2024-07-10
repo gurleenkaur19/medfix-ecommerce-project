@@ -1,7 +1,5 @@
 "use Client";
 import React, { useContext } from "react";
-import NavBar from "../components/navbar/index";
-import { GlobalContext } from "@/context";
 
 export default function Home() {
   return (

@@ -59,9 +59,9 @@ function NavBar() {
     localStorage.clear();
     router.push("/");
   }
-  let registrationRoute = "/register"; // Default route for clients and logged-out users
+  let registrationRoute = "/register";
   if (user?.role === "admin") {
-    registrationRoute = "/adminRegister"; // Admins get a different route
+    registrationRoute = "/adminRegister";
   }
   const isAdminView = pathName.includes("admin-view");
 
@@ -122,7 +122,7 @@ function NavBar() {
                 Register
               </button>
             ) : null}
-            {/* Conditional rendering for showing the Login/Logout button */}
+
             {isAuthUser ? (
               <button
                 className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-700 hover:border-transparent rounded"
