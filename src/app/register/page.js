@@ -114,35 +114,34 @@ export default function Register() {
                 </button>
               ) : (
                 <div className="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
-                  {registrationFormControls.map(
-                    (controlItem) =>
-                      controlItem.componentType === "input" ? (
-                        <div key={controlItem.id}>
-                          <InputComponent
-                            type={controlItem.type}
-                            placeholder={controlItem.placeholder}
-                            label={controlItem.label}
-                            key={controlItem.id}
-                            onChange={(event) => {
-                              setFormData({
-                                ...formData,
-                                [controlItem.id]: event.target.value,
-                              });
-                            }}
-                            value={formData[controlItem.id]}
-                          />
-                          {controlItem.id === "password" && passwordError ? (
-                            <span className="text-red-500 text-sm">
-                              {passwordError}
-                            </span>
-                          ) : null}
-                          {controlItem.id === "email" && emailError ? (
-                            <span className="text-red-500 text-sm">
-                              {emailError}
-                            </span>
-                          ) : null}
-                        </div>
-                      ) : null // Removed SelectComponent related code
+                  {registrationFormControls.map((controlItem) =>
+                    controlItem.componentType === "input" ? (
+                      <div key={controlItem.id}>
+                        <InputComponent
+                          type={controlItem.type}
+                          placeholder={controlItem.placeholder}
+                          label={controlItem.label}
+                          key={controlItem.id}
+                          onChange={(event) => {
+                            setFormData({
+                              ...formData,
+                              [controlItem.id]: event.target.value,
+                            });
+                          }}
+                          value={formData[controlItem.id]}
+                        />
+                        {controlItem.id === "password" && passwordError ? (
+                          <span className="text-red-500 text-sm">
+                            {passwordError}
+                          </span>
+                        ) : null}
+                        {controlItem.id === "email" && emailError ? (
+                          <span className="text-red-500 text-sm">
+                            {emailError}
+                          </span>
+                        ) : null}
+                      </div>
+                    ) : null
                   )}
                   <button
                     className=" disabled:opacity-50 inline-flex w-full items-center justify-center  px-6 py-4 text-lg
