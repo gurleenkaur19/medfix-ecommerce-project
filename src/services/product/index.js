@@ -59,3 +59,18 @@ export const updateProduct = async () => {
     console.log(error);
   }
 };
+
+export const deleteProduct = async (id) => {
+  try {
+    const res = await fetch(`/api/admin/delete-product?id=${id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: `Bearer ${Cookies.get("token")}`,
+      },
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
