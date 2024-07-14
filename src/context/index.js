@@ -13,6 +13,7 @@ export default function GlobalState({ children }) {
   });
   const [isAuthUser, setIsAuthUser] = useState(null);
   const [user, setUser] = useState(null);
+  const [currentUpdatedProduct, setCurrentUpdatedProduct] = useState(null);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -39,6 +40,8 @@ export default function GlobalState({ children }) {
         setIsAuthUser,
         user,
         setUser,
+        currentUpdatedProduct,
+        setCurrentUpdatedProduct,
       }}
     >
       {children}

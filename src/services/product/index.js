@@ -42,7 +42,7 @@ export const getAllAdminProducts = async () => {
   }
 };
 
-export const updateProduct = async () => {
+export const updateProduct = async (formData) => {
   try {
     const res = await fetch("/api/admin/update-product", {
       method: "PUT",
@@ -53,6 +53,9 @@ export const updateProduct = async () => {
       body: JSON.stringify(formData),
     });
 
+    if (!res.ok) {
+      throw new Error("Network response was not ok");
+    }
     const data = await res.json();
     return data;
   } catch (error) {

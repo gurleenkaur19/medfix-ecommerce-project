@@ -3,7 +3,15 @@ import React from "react";
 import ProductTile from "./ProductTile";
 import ProductButton from "./ProductButton";
 
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
 export default function CommonListing({ data }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.refresh();
+  }, []);
   return (
     <>
       <section className="bg-white">

@@ -1,13 +1,25 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { GlobalContext } from "@/context";
 
-export default function ProductButton() {
+export default function ProductButton({ item }) {
   const pathName = usePathname();
+
+  const contextValue = useContext(GlobalContext);
+  const setCurrentUpdatedProduct = contextValue.setCurrentUpdatedProduct;
   const isAdminView = pathName.includes("admin-view");
+  const router = useRouter();
+
   return isAdminView ? (
     <>
       <button
+        onClick={() => {
+          setCurrentUpdatedProduct(item);
+          router.push(`/admin-view/add-product`);
+        }}
         className="flex w-full justify-center bg-amber-500  text-black font-semibold  
                 py-2 px-4 border rounded px-5 py-3 text-base font-medium uppercase tracking-wide"
       >

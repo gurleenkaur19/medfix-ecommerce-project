@@ -2,7 +2,7 @@
 
 import { GlobalContext } from "@/context";
 import Notification from "@/components/Notification";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import InputComponent from "@/components/FormElements/InputComponent";
 import SelectComponent from "@/components/FormElements/SelectComponent";
 import TileComponent from "@/components/FormElements/TileComponent";
@@ -20,7 +20,7 @@ import {
 } from "firebase/storage";
 import { useState } from "react";
 import { ref } from "firebase/storage";
-import { addNewProduct } from "@/services/product";
+import { addNewProduct, updateProduct } from "@/services/product";
 import { useRouter } from "next/navigation";
 import ComponentLevelLoader from "@/components/Loader/componentLevelLoader";
 
@@ -68,10 +68,18 @@ const initialFormData = {
 
 export default function AdminAddNewProduct() {
   const [formData, setFormData] = useState(initialFormData);
-  const { componentLevelLoader, setComponentLevelLoader } =
-    useContext(GlobalContext);
+  const {
+    componentLevelLoader,
+    setComponentLevelLoader,
+    currentUpdatedProduct,
+    setCurrentUpdatedProduct,
+  } = useContext(GlobalContext);
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState();
+
+  useEffect(() => {
+    if (currentUpdatedProduct !== null) setFormData(currentUpdatedProduct);
+  }, [currentUpdatedProduct]);
 
   async function handleImage(event) {
     const extractImageURL = await helperForUploadingImageToFirebase(
@@ -105,14 +113,18 @@ export default function AdminAddNewProduct() {
   async function handleAddProduct() {
     setErrorMessage(null);
     setComponentLevelLoader({ loading: true, id: "" });
-    const res = await addNewProduct(formData);
+    const res =
+      currentUpdatedProduct !== null
+        ? await updateProduct(formData)
+        : await addNewProduct(formData);
     console.log(res);
 
-    if (res.success) {
+    if (res && res.success) {
       setComponentLevelLoader({ loading: false, id: "" });
       setErrorMessage(res.message);
 
       setFormData(initialFormData);
+      setCurrentUpdatedProduct(null);
       setTimeout(() => {
         router.push("/admin-view/all-products");
       }, 3000);
@@ -187,10 +199,16 @@ export default function AdminAddNewProduct() {
           >
             {componentLevelLoader && componentLevelLoader.loading ? (
               <ComponentLevelLoader
-                text={"Adding Product..."}
+                text={
+                  currentUpdatedProduct !== null
+                    ? "Updating Product..."
+                    : "Adding Product..."
+                }
                 color={"#ffffff"}
                 loading={componentLevelLoader && componentLevelLoader.loading}
               />
+            ) : currentUpdatedProduct !== null ? (
+              "Update Product"
             ) : (
               "Add Product"
             )}
