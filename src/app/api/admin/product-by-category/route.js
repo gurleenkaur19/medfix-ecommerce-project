@@ -4,28 +4,23 @@ import Product from "@/models/product";
 
 export const dynamic = "force-dynamic";
 
-export async function DELETE(req) {
+export async function GET(req) {
   try {
     await connectToDB();
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
+    const getData = await Product.find({ category: id });
 
-    if (!id) {
-      return NextResponse.json({
-        success: false,
-        message: "Invalid ID",
-      });
-    }
-    const deletedProduct = await Product.findByIdAndDelete(id);
-    if (deletedProduct) {
+    if (getData) {
       return NextResponse.json({
         success: true,
-        message: "Product deleted successfully",
+        data: getData,
       });
     } else {
       return NextResponse.json({
         success: false,
-        message: "Failed to delete product! Please try again later.",
+        status: 204,
+        message: "No products found in this category.",
       });
     }
   } catch (error) {

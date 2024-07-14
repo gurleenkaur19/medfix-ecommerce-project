@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import connectToDB from "@/database";
-// import AuthUser from "@/middleware/AuthUser";
 import Product from "@/models/product";
 
 export const dynamic = "force-dynamic";
@@ -8,7 +7,6 @@ export const dynamic = "force-dynamic";
 export async function PUT(req) {
   try {
     await connectToDB();
-    // const isAuthUser = await AuthUser(req);
     const extractData = await req.json();
 
     const {

@@ -24,6 +24,11 @@ export const navOptions = [
     label: "Beauty",
     path: "/product/listing/beauty",
   },
+  {
+    id: "medicine",
+    label: "Medicine",
+    path: "/product/listing/medicine",
+  },
 ];
 
 export const adminNavOptions = [

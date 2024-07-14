@@ -19,9 +19,12 @@ export default function ProductButton({ item }) {
   const [errorMessage, setErrorMessage] = useState("");
 
   async function handleDeleteProduct(item) {
+    setComponentLevelLoader({ loading: true, id: item._id });
+
     const res = await deleteProduct(item._id);
+
     if (res && res.success) {
-      setComponentLevelLoader({ loading: true, id: item._id });
+      setComponentLevelLoader({ loading: false, id: "" });
       setErrorMessage(res.message);
       router.refresh();
     } else {
