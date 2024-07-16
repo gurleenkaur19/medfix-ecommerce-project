@@ -3,9 +3,9 @@
 "use client";
 
 import { registrationFormControls } from "@/utils";
-import InputComponent from "../../components/FormElements/InputComponent";
+import InputComponent from "../../../components/FormElements/InputComponent";
 import { useState } from "react";
-import { registerNewUser } from "../../services/register/index";
+import { registerNewUser } from "../../../services/register/index";
 import { useRouter } from "next/navigation";
 import { GlobalContext } from "@/context";
 import { useContext } from "react";

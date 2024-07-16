@@ -1,10 +1,10 @@
 "use client";
 
 import { registrationFormControls } from "@/utils";
-import InputComponent from "../../components/FormElements/InputComponent";
-import SelectComponent from "../../components/FormElements/SelectComponent";
+import InputComponent from "../../../components/FormElements/InputComponent";
+import SelectComponent from "../../../components/FormElements/SelectComponent";
 import { useState } from "react";
-import { registerNewUser } from "../../services/register/index";
+import { registerNewUser } from "../../../services/register/index";
 import { useRouter } from "next/navigation";
 
 const initialFormData = {
