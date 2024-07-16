@@ -1,13 +1,22 @@
 import { NextResponse } from "next/server";
-import connectToDB from "../../../../database/index";
-import Product from "@/models/product";
-
+import { authorizationService } from "@/utils/authVerify";
+import { getAllProducts } from "@/database/products";
 export const dynamic = "force-dynamic";
 
 export async function GET(req) {
   try {
-    await connectToDB();
-    const extractAllProducts = await Product.find({});
+    const token = authorizationService(req.headers.get("authorization"));
+    const isAdmin = authorizationService(
+      req.headers.get("authorization"),
+      true
+    );
+    if (!token && !isAdmin)
+      return NextResponse.json({
+        success: false,
+        status: 401,
+        message: "Unauthorized Access",
+      });
+    const extractAllProducts = await getAllProducts();
     if (extractAllProducts) {
       return NextResponse.json({
         success: true,

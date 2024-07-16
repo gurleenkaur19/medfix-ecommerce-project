@@ -2,7 +2,7 @@
 
 import InputComponent from "@/components/FormElements/InputComponent";
 import { loginFormControls } from "@/utils";
-import { login } from "../../services/login/index";
+import { login } from "../../../services/login/index";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/context";
