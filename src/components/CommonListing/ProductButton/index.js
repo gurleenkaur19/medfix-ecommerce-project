@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { GlobalContext } from "@/context";
 import { deleteProduct } from "@/services/product";
 import { useState } from "react";
+import ComponentLevelLoader from "@/components/Loader/componentLevelLoader";
 
 export default function ProductButton({ item }) {
   const pathName = usePathname();
@@ -54,7 +55,7 @@ export default function ProductButton({ item }) {
         {componentLevelLoader &&
         componentLevelLoader.loading &&
         item._id === componentLevelLoader.id ? (
-          <componentLevelLoader
+          <ComponentLevelLoader
             text={"Deleting Product..."}
             color={"#ffffff"}
             loading={componentLevelLoader && componentLevelLoader.loading}

@@ -69,7 +69,7 @@ export async function POST(req) {
       finalData,
     });
   } catch (e) {
-    console.log("Error while logging In. Please try again");
+    console.log(e);
 
     return NextResponse.json({
       success: false,
