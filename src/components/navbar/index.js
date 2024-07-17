@@ -69,7 +69,7 @@ function NavBar() {
   function handleLogout() {
     setIsAuthUser(false);
     setUser(null);
-    Cookies.remove("token ");
+    Cookies.remove("token");
     localStorage.clear();
     router.push("/");
   }

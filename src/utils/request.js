@@ -15,7 +15,7 @@ export const GET = async (url) => {
 
 export const SECURE_GET = async (url) => {
   try {
-    const token = Cookies.get("token");
+    const token = localStorage.getItem("token");
     const res = await fetch(`http://localhost:4000/api${url}`, {
       method: "GET",
       headers: {

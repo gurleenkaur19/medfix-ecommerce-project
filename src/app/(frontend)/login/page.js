@@ -49,12 +49,16 @@ export default function Login() {
       setUser(res?.finalData?.user);
       setFormData(initialFormdata);
       Cookies.set("token", res?.finalData?.token);
+      localStorage.setItem("token", res?.finalData?.token);
       localStorage.setItem("user", JSON.stringify(res?.finalData?.user));
       setComponentLevelLoader({ loading: false, id: "" });
     } else {
       console.log(res.message);
-      setErrorMessage(res.message);
       setIsAuthUser(false);
+      setUser(null);
+      Cookies.set("token", "");
+      localStorage.clear();
+      setErrorMessage(res.message);
       setComponentLevelLoader({ loading: false, id: "" });
     }
   }

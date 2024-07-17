@@ -5,12 +5,11 @@ export const dynamic = "force-dynamic";
 
 export async function GET(req) {
   try {
-    const token = authorizationService(req.headers.get("authorization"));
-    const isAdmin = authorizationService(
+    const isAdmin = await authorizationService(
       req.headers.get("authorization"),
-      true
+      ["admin"]
     );
-    if (!token && !isAdmin)
+    if (isAdmin)
       return NextResponse.json({
         success: false,
         status: 401,
