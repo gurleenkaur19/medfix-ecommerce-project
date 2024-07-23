@@ -67,7 +67,7 @@ export default function ProductButton({ item }) {
     </>
   ) : (
     <>
-      <button className="mt-1.5 flex w-full justify-center bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
+      <button className="bg-emerald-700 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
         Add To Cart
       </button>
     </>
