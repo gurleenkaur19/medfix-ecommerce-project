@@ -1,5 +1,5 @@
 import { Inter } from "next/font/google";
-import GlobalState from "../context/index";
+import GlobalState from "../../context/index";
 import "./globals.css";
 
 import ClientLayout from "./clientLayout.js";
