@@ -12,6 +12,11 @@ export default function CommonListing({ data }) {
   useEffect(() => {
     router.refresh();
   }, []);
+
+  const handleArticleClick = (item) => {
+    router.push(`/product/${item._id}`);
+  };
+
   return (
     <>
       <section className="bg-white mt-[40px]">
@@ -22,7 +27,7 @@ export default function CommonListing({ data }) {
                   <article
                     key={item._id}
                     className="relative flex flex-col overflow-hidden border cursor-pointer"
-                    onClick={() => router.push(`/product/${item._id}`)}
+                    onClick={() => handleArticleClick(item)}
                   >
                     <ProductTile item={item} />
                     <ProductButton item={item} />

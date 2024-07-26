@@ -2,15 +2,13 @@
 
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { GlobalContext } from "@/context";
 import { deleteProduct } from "@/services/product";
-import { useState } from "react";
 import ComponentLevelLoader from "@/components/Loader/componentLevelLoader";
 
 export default function ProductButton({ item }) {
   const pathName = usePathname();
-
   const contextValue = useContext(GlobalContext);
   const setCurrentUpdatedProduct = contextValue.setCurrentUpdatedProduct;
   const { setComponentLevelLoader, componentLevelLoader } =
@@ -19,7 +17,8 @@ export default function ProductButton({ item }) {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
 
-  async function handleDeleteProduct(item) {
+  async function handleDeleteProduct(event, item) {
+    event.stopPropagation();
     setComponentLevelLoader({ loading: true, id: item._id });
 
     const res = await deleteProduct(item._id);
@@ -35,22 +34,28 @@ export default function ProductButton({ item }) {
     }
   }
 
+  const handleUpdateClick = (event, item) => {
+    event.stopPropagation();
+    setCurrentUpdatedProduct(item);
+    router.push(`/admin-view/add-product`);
+  };
+
+  const handleAddToCartClick = (event) => {
+    event.stopPropagation();
+    // Add to cart logic
+  };
+
   return isAdminView ? (
     <>
       <button
-        onClick={() => {
-          setCurrentUpdatedProduct(item);
-          router.push(`/admin-view/add-product`);
-        }}
-        className="flex w-full justify-center bg-amber-500  text-black font-semibold  
-                py-2 px-4 border rounded px-5 py-3 text-base font-medium uppercase tracking-wide"
+        onClick={(event) => handleUpdateClick(event, item)}
+        className="flex w-full justify-center bg-amber-500 text-black font-semibold py-2 px-4 border rounded px-5 py-3 text-base font-medium uppercase tracking-wide"
       >
         Update
       </button>
       <button
-        onClick={() => handleDeleteProduct(item)}
-        className="mt-1.5 flex w-full justify-center bg-orange-600  text-black font-semibold  
-                py-2 px-4 border rounded px-5 py-3 text-base uppercase tracking-wide "
+        onClick={(event) => handleDeleteProduct(event, item)}
+        className="mt-1.5 flex w-full justify-center bg-orange-600 text-black font-semibold py-2 px-4 border rounded px-5 py-3 text-base uppercase tracking-wide"
       >
         {componentLevelLoader &&
         componentLevelLoader.loading &&
@@ -67,7 +72,10 @@ export default function ProductButton({ item }) {
     </>
   ) : (
     <>
-      <button className="bg-emerald-700 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+      <button
+        // onClick={(event) => handleAddToCartClick(event)}
+        className="bg-emerald-700 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+      >
         Add To Cart
       </button>
     </>
