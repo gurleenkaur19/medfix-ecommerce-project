@@ -43,6 +43,11 @@ export async function POST(req) {
       });
     }
 
+    // Ensure TOKEN_SECRET is set
+    if (!process.env.TOKEN_SECRET) {
+      throw new Error("TOKEN_SECRET is not set in environment variables");
+    }
+
     const token = jwt.sign(
       {
         id: checkUser._id,

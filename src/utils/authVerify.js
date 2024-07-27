@@ -1,18 +1,29 @@
 import User from "@/models/user";
 import jwt from "jsonwebtoken";
 
-export const authorizationService = async (authHeader, role) => {
-  const token = authHeader
-    ? authHeader.includes("Bearer")
-      ? authHeader.split(" ")[1]
-      : null
-    : null;
-  if (!token) return false;
-  const data = jwt.verify(token, process.env.TOKEN_SECRET);
+export const authorizationService = async (authHeader, roles) => {
+  try {
+    // Extract token from the authorization header
+    const token =
+      authHeader && authHeader.startsWith("Bearer ")
+        ? authHeader.split(" ")[1]
+        : null;
 
-  const user = await User.findOne({ id: data.id });
-  if (!user) return false;
+    // If no token is found, return false
+    if (!token) return false;
 
-  if (role.includes(user.role)) return true;
-  return false;
+    // Verify the token
+    const data = jwt.verify(token, process.env.TOKEN_SECRET);
+
+    // Find the user by ID
+    const user = await User.findOne({ _id: data.id });
+    if (!user) return false;
+
+    // Check if the user's role is included in the allowed roles
+    if (roles.includes(user.role)) return user.role;
+    return false;
+  } catch (error) {
+    console.error("Authorization error:", error);
+    return false;
+  }
 };
