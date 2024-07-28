@@ -11,6 +11,7 @@ export default function GlobalState({ children }) {
     loading: false,
     id: "",
   });
+  const [showCartModel, setShowCartModel] = useState(false);
   const [isAuthUser, setIsAuthUser] = useState(null);
   const [user, setUser] = useState(null);
   const [currentUpdatedProduct, setCurrentUpdatedProduct] = useState(null);
@@ -42,6 +43,8 @@ export default function GlobalState({ children }) {
         setUser,
         currentUpdatedProduct,
         setCurrentUpdatedProduct,
+        showCartModel,
+        setShowCartModel,
       }}
     >
       {children}

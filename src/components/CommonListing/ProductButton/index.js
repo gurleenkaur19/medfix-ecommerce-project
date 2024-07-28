@@ -5,14 +5,20 @@ import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { GlobalContext } from "@/context";
 import { deleteProduct } from "@/services/product";
+import { addToCart } from "@/services/cart";
 import ComponentLevelLoader from "@/components/Loader/componentLevelLoader";
 
 export default function ProductButton({ item }) {
   const pathName = usePathname();
   const contextValue = useContext(GlobalContext);
   const setCurrentUpdatedProduct = contextValue.setCurrentUpdatedProduct;
-  const { setComponentLevelLoader, componentLevelLoader } =
-    useContext(GlobalContext);
+  const {
+    setComponentLevelLoader,
+    componentLevelLoader,
+    showCartModel,
+    setShowCartModel,
+    user,
+  } = useContext(GlobalContext);
   const isAdminView = pathName.includes("admin-view");
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
@@ -40,10 +46,21 @@ export default function ProductButton({ item }) {
     router.push(`/admin-view/add-product`);
   };
 
-  const handleAddToCartClick = (event) => {
-    event.stopPropagation();
-    // Add to cart logic
-  };
+  async function handleAddToCart(getItem) {
+    setComponentLevelLoader({ loading: true, id: getItem._id });
+
+    const res = await addToCart({ productID: getItem._id, userID: user._id });
+
+    if (res.success) {
+      setComponentLevelLoader({ loading: false, id: "" });
+      setShowCartModel(true);
+    } else {
+      setComponentLevelLoader({ loading: false, id: "" });
+      setShowCartModel(true);
+    }
+
+    console.log(res);
+  }
 
   return isAdminView ? (
     <>
@@ -73,10 +90,20 @@ export default function ProductButton({ item }) {
   ) : (
     <>
       <button
-        // onClick={(event) => handleAddToCartClick(event)}
+        onClick={() => handleAddToCart(item)}
         className="bg-emerald-700 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
       >
-        Add To Cart
+        {componentLevelLoader &&
+        componentLevelLoader.loading &&
+        componentLevelLoader.id === item._id ? (
+          <ComponentLevelLoader
+            text={"Adding to cart"}
+            color={"#ffffff"}
+            loading={componentLevelLoader && componentLevelLoader.loading}
+          />
+        ) : (
+          "Add To Cart"
+        )}
       </button>
     </>
   );
