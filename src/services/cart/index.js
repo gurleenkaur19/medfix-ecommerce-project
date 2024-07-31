@@ -5,24 +5,28 @@ export const addToCart = async (formData) => {
     const res = await fetch("/api/cart/add-to-cart", {
       method: "POST",
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("token")}`,
       },
       body: JSON.stringify(formData),
     });
 
-    const data = await res.json();
+    if (!res.ok) {
+      throw new Error("Network response was not ok");
+    }
 
+    const data = await res.json();
     return data;
   } catch (e) {
-    console.log(e);
+    console.error("Error adding to cart:", e);
+    return { success: false, error: e.message };
   }
 };
 
 export const getAllCartItems = async (id) => {
   try {
     const res = await fetch(
-      `http://localhost:3000/api/cart/all-cart-items?id=${id}`,
+      `http://localhost:4000/api/cart/all-cart-items?id=${id}`,
       {
         method: "GET",
         headers: {
@@ -31,11 +35,15 @@ export const getAllCartItems = async (id) => {
       }
     );
 
-    const data = await res.json();
+    if (!res.ok) {
+      throw new Error("Network response was not ok");
+    }
 
+    const data = await res.json();
     return data;
   } catch (e) {
-    console.log(e);
+    console.error("Failed to fetch cart items:", e);
+    return { success: false, data: [] };
   }
 };
 

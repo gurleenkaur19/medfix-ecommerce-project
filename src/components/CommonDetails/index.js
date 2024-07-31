@@ -2,13 +2,14 @@
 import ComponentLevelLoader from "@/components/Loader/componentLevelLoader";
 import { useContext } from "react";
 import { GlobalContext } from "@/context";
+import { addToCart } from "@/services/cart";
 
 export default function CommonDetails({ item }) {
   const {
     setComponentLevelLoader,
     componentLevelLoader,
     user,
-    setShowCartModal,
+    setShowCartModel,
   } = useContext(GlobalContext);
 
   if (!item) {
@@ -17,9 +18,19 @@ export default function CommonDetails({ item }) {
     );
   }
 
-  const handleAddToCart = (item) => {
-    // Your add to cart logic
-  };
+  async function handleAddToCart(getItem) {
+    setComponentLevelLoader({ loading: true, id: "" });
+
+    const res = await addToCart({ productID: getItem._id, userID: user._id });
+
+    if (res.success) {
+      setComponentLevelLoader({ loading: false, id: "" });
+      setShowCartModel(true);
+    } else {
+      setComponentLevelLoader({ loading: false, id: "" });
+      setShowCartModel(true);
+    }
+  }
 
   return (
     <section className="mx-auto mt-[80px] max-w-screen-xl px-4 sm:px-6 lg:px-8 color-black">

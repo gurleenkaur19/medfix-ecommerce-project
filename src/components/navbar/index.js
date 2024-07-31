@@ -53,8 +53,8 @@ function NavBar() {
     setUser,
     currentUpdatedProduct,
     setCurrentUpdatedProduct,
-    showCartModal,
-    setShowCartModal,
+    showCartModel,
+    setShowCartModel,
   } = useContext(GlobalContext);
   const pathName = usePathname();
   const router = useRouter();
@@ -101,7 +101,10 @@ function NavBar() {
                 <button className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
                   Account
                 </button>
-                <button className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
+                <button
+                  className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+                  onClick={() => setShowCartModel(true)}
+                >
                   Cart
                 </button>
               </Fragment>
@@ -194,7 +197,7 @@ function NavBar() {
         show={showNavModal}
         setShow={setShowNavModal}
       />
-      {showCartModal && <CartModel />}
+      {showCartModel && <CartModel />}
     </>
   );
 }

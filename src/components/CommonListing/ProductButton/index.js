@@ -47,19 +47,25 @@ export default function ProductButton({ item }) {
   };
 
   async function handleAddToCart(getItem) {
-    setComponentLevelLoader({ loading: true, id: getItem._id });
+    try {
+      setComponentLevelLoader({ loading: true, id: getItem._id });
 
-    const res = await addToCart({ productID: getItem._id, userID: user._id });
+      const res = await addToCart({ productID: getItem._id, userID: user._id });
 
-    if (res.success) {
+      if (res && res.success) {
+        setComponentLevelLoader({ loading: false, id: "" });
+        setShowCartModel(true);
+      } else {
+        setComponentLevelLoader({ loading: false, id: "" });
+        setShowCartModel(true);
+        console.error("Failed to add to cart:", res);
+      }
+
+      console.log(res);
+    } catch (error) {
       setComponentLevelLoader({ loading: false, id: "" });
-      setShowCartModel(true);
-    } else {
-      setComponentLevelLoader({ loading: false, id: "" });
-      setShowCartModel(true);
+      console.error("Error adding to cart:", error);
     }
-
-    console.log(res);
   }
 
   return isAdminView ? (
