@@ -8,6 +8,7 @@ import ComponentLevelLoader from "@/components/Loader/componentLevelLoader";
 import { loginFormControls } from "@/utils";
 import { login } from "../../../services/login/index";
 import { GlobalContext } from "@/context";
+import Link from "next/link";
 
 const initialFormData = {
   email: "",
@@ -75,10 +76,14 @@ export default function Login() {
           <div className="w-full mt-10 mr-0 mb-0 ml-0 relative max-w-2xl lg:mt-0 lg:w-5/12">
             <div className="flex flex-col items-center justify-start pt-10 pr-10 pb-10 pl-10 bg-white shadow-2xl rounded-xl relative z-10">
               <div className="flex items-center cursor-pointer pb-2">
-                <img src="/logo.png" className="w-10 h-10" alt="logo" />
-                <span className="self-center text-2xl font-semibold whitespace-nowrap text-red-600 font-serif">
-                  MedFix
-                </span>
+                <Link href="/">
+                  <img src="/logo.png" className="w-10 h-10" alt="logo" />
+                </Link>
+                <Link href="/">
+                  <span className="self-center text-2xl font-semibold whitespace-nowrap text-red-600 font-serif">
+                    MedFix
+                  </span>
+                </Link>
               </div>
               <p className="w-full text-4xl font-medium text-center font-serif">
                 Login
