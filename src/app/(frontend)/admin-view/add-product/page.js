@@ -1,7 +1,6 @@
 "use client";
 
 import { GlobalContext } from "@/context";
-import Notification from "@/components/Notification";
 import { useContext, useEffect } from "react";
 import InputComponent from "@/components/FormElements/InputComponent";
 import SelectComponent from "@/components/FormElements/SelectComponent";

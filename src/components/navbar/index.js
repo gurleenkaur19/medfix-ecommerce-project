@@ -5,7 +5,7 @@ import { GlobalContext } from "../../context/index";
 import CommonModal from "../CommonModal";
 import { usePathname, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import CartModel from "../CartModel";
+import CartModal from "../CartModel";
 
 function NavItems({ isModelView = false, isAdminView, router }) {
   return (
@@ -197,7 +197,7 @@ function NavBar() {
         show={showNavModal}
         setShow={setShowNavModal}
       />
-      {showCartModel && <CartModel />}
+      {showCartModel && <CartModal />}
     </>
   );
 }

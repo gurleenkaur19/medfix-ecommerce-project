@@ -4,8 +4,9 @@ import { Fragment, useContext, useEffect } from "react";
 import CommonModal from "../CommonModal";
 import { GlobalContext } from "@/context";
 import { Button } from "@headlessui/react";
-import { getAllCartItems } from "@/services/cart";
+import { getAllCartItems, deleteFromCart } from "@/services/cart";
 import ComponentLevelLoader from "@/components/Loader/componentLevelLoader";
+import { useRouter } from "next/navigation";
 
 export default function CartModal() {
   const {
@@ -17,6 +18,7 @@ export default function CartModal() {
     setComponentLevelLoader,
     componentLevelLoader,
   } = useContext(GlobalContext);
+  const router = useRouter();
 
   async function extractAllCartItems() {
     const res = await getAllCartItems(user?._id);
@@ -33,7 +35,18 @@ export default function CartModal() {
     if (user !== null) extractAllCartItems();
   }, [user]);
 
-  async function handleDeleteCartItem(getCartItemID) {}
+  async function handleDeleteCartItem(getCartItemID) {
+    setComponentLevelLoader({ loading: true, id: getCartItemID });
+    const res = await deleteFromCart(getCartItemID);
+
+    if (res.success) {
+      setComponentLevelLoader({ loading: false, id: "" });
+
+      extractAllCartItems();
+    } else {
+      setComponentLevelLoader({ loading: false, id: getCartItemID });
+    }
+  }
 
   return (
     <CommonModal
@@ -84,7 +97,7 @@ export default function CartModal() {
                       componentLevelLoader.loading &&
                       componentLevelLoader.id === cartItem._id ? (
                         <ComponentLevelLoader
-                          text={"Removing"}
+                          text={"Removing..."}
                           color={"#000000"}
                           loading={
                             componentLevelLoader && componentLevelLoader.loading
