@@ -19,6 +19,11 @@ export default function CommonDetails({ item }) {
   }
 
   async function handleAddToCart(getItem) {
+    if (!getItem || !getItem._id || !user || !user._id) {
+      console.error("Invalid item or user data");
+      setComponentLevelLoader({ loading: false, id: "" });
+      return;
+    }
     setComponentLevelLoader({ loading: true, id: "" });
 
     const res = await addToCart({ productID: getItem._id, userID: user._id });
