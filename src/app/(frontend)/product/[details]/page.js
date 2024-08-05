@@ -3,7 +3,6 @@ import { ProductById } from "../../../../services/product";
 
 export default async function ProductDetails({ params }) {
   const productId = params.details;
-  console.log("ProductDetails params:", productId);
 
   const productDetailsData = await ProductById(productId);
 
