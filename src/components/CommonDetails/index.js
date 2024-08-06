@@ -104,7 +104,7 @@ export default function CommonDetails({ item }) {
                 >
                   {componentLevelLoader && componentLevelLoader.loading ? (
                     <ComponentLevelLoader
-                      text={"Adding to Cart"}
+                      text={"Adding to Cart..."}
                       color={"#ffffff"}
                       loading={
                         componentLevelLoader && componentLevelLoader.loading

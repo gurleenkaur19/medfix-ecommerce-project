@@ -138,7 +138,14 @@ export default function CartModal() {
             Checkout
           </Button>
           <div className="mt-6 flex justify-center text-center text-sm text-gray-600">
-            <button type="button" className="font-medium text-grey">
+            <button
+              type="button"
+              onClick={() => {
+                router.push("/");
+                setShowCartModel(false);
+              }}
+              className="font-medium text-grey"
+            >
               Continue Shopping
               <span aria-hidden="true"> &rarr;</span>
             </button>
