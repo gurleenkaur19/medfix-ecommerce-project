@@ -4,15 +4,12 @@ import CommonCart from "@/components/CommonCart";
 import { GlobalContext } from "@/context";
 import { deleteFromCart, getAllCartItems } from "@/services/cart";
 import { useContext, useEffect } from "react";
-import { PulseLoader } from "react-spinners";
 
 export default function Cart() {
   const {
     user,
     setCartItems,
     cartItems,
-    pageLevelLoader,
-    setPageLevelLoader,
     setComponentLevelLoader,
     componentLevelLoader,
   } = useContext(GlobalContext);
