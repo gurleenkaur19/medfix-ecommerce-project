@@ -116,7 +116,6 @@ export default function AdminAddNewProduct() {
       currentUpdatedProduct !== null
         ? await updateProduct(formData)
         : await addNewProduct(formData);
-    console.log(res);
 
     if (res && res.success) {
       setComponentLevelLoader({ loading: false, id: "" });
@@ -133,7 +132,6 @@ export default function AdminAddNewProduct() {
       console.log(res.message);
     }
   }
-  console.log(formData);
 
   return (
     <div className="w-full mt-5 mr-0 mb-0 ml-0 relative">

@@ -59,8 +59,6 @@ function NavBar() {
   const pathName = usePathname();
   const router = useRouter();
 
-  console.log(user, isAuthUser, "navbar");
-
   useEffect(() => {
     if (
       pathName !== "/admin-view/add-product" &&

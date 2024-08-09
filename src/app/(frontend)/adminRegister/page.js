@@ -21,8 +21,6 @@ export default function adminRegister() {
   const [errorMessage, setErrorMessage] = useState(null);
   const router = useRouter();
 
-  console.log(formData);
-
   function isFormValid() {
     return formData &&
       formData.name &&
@@ -34,7 +32,6 @@ export default function adminRegister() {
       ? true
       : false;
   }
-  console.log(isFormValid());
 
   async function handleRegisterOnSubmit() {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -62,7 +59,6 @@ export default function adminRegister() {
       if (data.success) {
         setIsRegistered(true);
       } else {
-        console.log(data.message);
         setErrorMessage(data.message);
       }
     } catch (error) {

@@ -15,7 +15,6 @@ export default function AdminAllProducts() {
       try {
         const products = await SECURE_GET("/admin/all-products");
         setAllAdminProducts(products);
-        console.log(products);
       } catch (error) {
         setError(error);
         console.error("Error fetching products:", error);

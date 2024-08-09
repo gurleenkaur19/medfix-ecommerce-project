@@ -60,8 +60,6 @@ export default function ProductButton({ item }) {
         setShowCartModel(true);
         console.error("Failed to add to cart:", res);
       }
-
-      console.log(res);
     } catch (error) {
       setComponentLevelLoader({ loading: false, id: "" });
       console.error("Error adding to cart:", error);

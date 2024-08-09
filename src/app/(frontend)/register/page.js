@@ -1,5 +1,3 @@
-// Updated Register component without SelectComponent
-
 "use client";
 
 import { registrationFormControls } from "@/utils";

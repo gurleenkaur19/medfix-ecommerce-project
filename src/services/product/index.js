@@ -96,7 +96,6 @@ export const getProductByCategory = async (id) => {
 };
 // services/product.js
 export const ProductById = async (id) => {
-  // console.log("Fetching product with ID:", id);
   try {
     const res = await fetch(
       `http://localhost:4000/api/admin/product-by-id?id=${id}`,
@@ -106,7 +105,6 @@ export const ProductById = async (id) => {
       }
     );
     const data = await res.json();
-    // console.log("Fetched data:", data);
     return data;
   } catch (error) {
     console.log("Error fetching product:", error);

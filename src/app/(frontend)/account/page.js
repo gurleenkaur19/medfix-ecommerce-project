@@ -46,8 +46,6 @@ export default function Account() {
           })
         : await addNewAddress({ ...addressFormData, userID: user?._id });
 
-    console.log(res);
-
     if (res.success) {
       setComponentLevelLoader({ loading: false, id: "" });
 
@@ -108,7 +106,9 @@ export default function Account() {
       <div className="mx-auto bg-gray-100 px-4 sm:px-6 lg:px-8">
         <div className="bg-white shadow">
           <div className="p-6 sm:p-12">
-            <h1 className="mt-20 font-bold text-3xl text-black">My Account</h1>
+            <h1 className="mt-20 font-bold text-3xl text-red-600">
+              My Account
+            </h1>
             <div className="mt-5 flex flex-col flex-1 text-black">
               <h4 className="text-lg font-semibold md:text-left">
                 {user?.name}
@@ -118,7 +118,7 @@ export default function Account() {
             </div>
             <button
               onClick={() => router.push("/orders")}
-              className="mt-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+              className="mt-5 inline-block bg-black px-5 py-3 text-md font-medium uppercase tracking-wide bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
             >
               View Your Orders
             </button>
@@ -135,13 +135,13 @@ export default function Account() {
                       <p>PostalCode : {item.postalCode}</p>
                       <button
                         onClick={() => handleUpdateAddress(item)}
-                        className="mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+                        className="mt-5 inline-block bg-black px-5 py-3 text-md font-medium uppercase tracking-wide bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
                       >
                         Update
                       </button>
                       <button
                         onClick={() => handleDelete(item._id)}
-                        className="mt-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+                        className="mt-5 ml-5 inline-block bg-black px-5 py-3 text-md font-medium uppercase tracking-wide bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
                       >
                         {componentLevelLoader &&
                         componentLevelLoader.loading &&
@@ -168,7 +168,7 @@ export default function Account() {
             <div className="mt-4">
               <button
                 onClick={() => setShowAddressForm(!showAddressForm)}
-                className="mt-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+                className="mt-5 inline-block bg-black px-5 py-3 text-md font-medium uppercase tracking-wide bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
               >
                 {showAddressForm ? "Hide Address Form" : "Add New Address"}
               </button>
@@ -181,6 +181,7 @@ export default function Account() {
                       type={controlItem.type}
                       placeholder={controlItem.placeholder}
                       label={controlItem.label}
+                      key={controlItem.id}
                       value={addressFormData[controlItem.id]}
                       onChange={(event) =>
                         setAddressFormData({
@@ -193,7 +194,7 @@ export default function Account() {
                 </div>
                 <button
                   onClick={handleAddOrUpdateAddress}
-                  className="mt-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+                  className="mt-5 inline-block bg-black px-5 py-3 text-md font-medium uppercase tracking-wide bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
                 >
                   {componentLevelLoader && componentLevelLoader.loading ? (
                     <ComponentLevelLoader

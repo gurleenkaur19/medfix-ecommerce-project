@@ -13,7 +13,6 @@ export default function Cart() {
     setComponentLevelLoader,
     componentLevelLoader,
   } = useContext(GlobalContext);
-
   async function extractAllCartItems() {
     const res = await getAllCartItems(user?._id);
 
@@ -21,8 +20,6 @@ export default function Cart() {
       setCartItems(res.data);
       localStorage.setItem("cartItems", JSON.stringify(res.data));
     }
-
-    console.log(res);
   }
 
   useEffect(() => {
@@ -41,19 +38,6 @@ export default function Cart() {
       setComponentLevelLoader({ loading: false, id: getCartItemID });
     }
   }
-
-  // if (pageLevelLoader) {
-  //   return (
-  //     <div className="w-full min-h-screen flex justify-center items-center">
-  //       <PulseLoader
-  //         color={"#000000"}
-  //         loading={pageLevelLoader}
-  //         size={50}
-  //         data-testid="loader"
-  //       />
-  //     </div>
-  //   );
-  // }
 
   return (
     <CommonCart
