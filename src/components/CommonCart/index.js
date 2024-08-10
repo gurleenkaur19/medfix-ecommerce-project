@@ -11,7 +11,7 @@ export default function CommonCart({
   const router = useRouter();
 
   return (
-    <section className="h-screen bg-gray-100">
+    <section className="h-screen bg-gray-100 mt-[80px]">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mt-8 max-w-screen-xl px-4 sm:px-6 lg:px-8">
           <div className="bg-white shadow">
@@ -53,7 +53,7 @@ export default function CommonCart({
                               </p>
                               <button
                                 type="button"
-                                className="font-medium text-yellow-700 sm:order-2"
+                                className="font-medium text-red-600 sm:order-2"
                                 onClick={() =>
                                   handleDeleteCartItem(cartItem._id)
                                 }
@@ -85,7 +85,7 @@ export default function CommonCart({
               </div>
               <div className="mt-6 border-t border-b py-2">
                 <div className="flex items-center justify-between">
-                  <p className="text-sm text-gray-400">Subtotal</p>
+                  <p className="text-sm text-black">Subtotal</p>
                   <p className="text-lg text-black font-semibold">
                     $
                     {cartItems && cartItems.length
@@ -97,11 +97,11 @@ export default function CommonCart({
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
-                  <p className="text-sm text-gray-400">Shipping</p>
+                  <p className="text-sm text-black">Shipping</p>
                   <p className="text-lg text-black font-semibold">$0</p>
                 </div>
                 <div className="flex items-center justify-between">
-                  <p className="text-sm text-gray-400">Total</p>
+                  <p className="text-md font-semibold text-red-600">Total</p>
                   <p className="text-lg text-black font-semibold">
                     $
                     {cartItems && cartItems.length
@@ -116,7 +116,7 @@ export default function CommonCart({
                   <button
                     onClick={() => router.push("/checkout")}
                     disabled={cartItems && cartItems.length === 0}
-                    className="disabled:opacity-50 group inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg text-white font-medium uppercase tracking-wide"
+                    className="mt-5 w-full inline-block bg-black px-5 py-3 text-md font-medium uppercase tracking-wide bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
                   >
                     Checkout
                   </button>
