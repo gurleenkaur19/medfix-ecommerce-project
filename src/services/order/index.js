@@ -38,18 +38,28 @@ export const getAllOrdersForUser = async (id) => {
 
 export const getOrderDetails = async (id) => {
   try {
+    const token = Cookies.get("token");
+    if (!token) {
+      throw new Error("No authentication token found");
+    }
+
     const res = await fetch(`/api/order/order-details?id=${id}`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${Cookies.get("token")}`,
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
     });
 
-    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(`Server responded with status ${res.status}`);
+    }
 
+    const data = await res.json();
     return data;
   } catch (e) {
-    console.log(e);
+    console.error("Error fetching order details:", e);
+    return { success: false, error: e.message };
   }
 };
 

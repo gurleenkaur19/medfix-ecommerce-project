@@ -12,12 +12,14 @@ export async function GET(req) {
 
     // Extract the Authorization header
     const authHeader = req.headers.get("Authorization");
+    // console.log("Authorization Header:", authHeader);
 
     // Check if the user is authorized
     const isAuthUser = await authorizationService(authHeader, [
       "admin",
       "customer",
     ]);
+    console.log("Authenticated User:", isAuthUser);
 
     if (!isAuthUser) {
       return NextResponse.json(
@@ -32,6 +34,7 @@ export async function GET(req) {
     // Extract the order ID from the request URL
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
+    console.log("Order ID:", id);
 
     if (!id) {
       return NextResponse.json(
@@ -47,6 +50,7 @@ export async function GET(req) {
     const extractOrderDetails = await Order.findById(id).populate(
       "orderItems.product"
     );
+    console.log("Extracted Order Details:", extractOrderDetails);
 
     if (!extractOrderDetails) {
       return NextResponse.json(
@@ -58,10 +62,10 @@ export async function GET(req) {
       );
     }
 
-    // Optional: Ensure the user is accessing their own order, unless they are an admin
+    // Ensure the user is accessing their own order, unless they are an admin
     if (
       isAuthUser.role !== "admin" &&
-      extractOrderDetails.user.toString() !== isAuthUser.id
+      extractOrderDetails.user.toString() !== isAuthUser._id.toString()
     ) {
       return NextResponse.json(
         {
