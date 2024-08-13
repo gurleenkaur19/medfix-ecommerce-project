@@ -127,6 +127,16 @@ export default function Checkout() {
 
     console.log(error);
   }
+
+  useEffect(() => {
+    if (orderSuccess) {
+      setTimeout(() => {
+        // setOrderSuccess(false);
+        router.push("/orders");
+      }, [2000]);
+    }
+  }, [orderSuccess]);
+
   if (orderSuccess) {
     return (
       <section className="h-screen bg-gray-200 mt-[90px]">
