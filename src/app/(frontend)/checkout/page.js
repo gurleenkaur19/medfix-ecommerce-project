@@ -2,9 +2,10 @@
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/context";
 import { fetchAllAddresses } from "@/services/address";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 import { callStripeSession } from "@/services/stripe";
+import { createNewOrder } from "@/services/order";
 
 export default function Checkout() {
   const {
@@ -16,8 +17,11 @@ export default function Checkout() {
     setCheckoutFormData,
   } = useContext(GlobalContext);
   const router = useRouter();
+  const params = useSearchParams();
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [isOrderProcessing, setIsOrderProcessing] = useState(false);
+  const [orderSuccess, setOrderSuccess] = useState(false);
+
   const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
   const stripePromise = loadStripe(publishableKey);
 
@@ -31,6 +35,48 @@ export default function Checkout() {
   useEffect(() => {
     if (user !== null) getAllAddresses();
   }, [user]);
+
+  useEffect(() => {
+    async function createFinalorder() {
+      const isStripe = JSON.parse(localStorage.getItem("stripe"));
+      if (
+        isStripe &&
+        params.get("status") === "success" &&
+        cartItems &&
+        cartItems.length > 0
+      ) {
+        setIsOrderProcessing(true);
+        const getCheckoutFormData = JSON.parse(
+          localStorage.getItem("checkoutFormData")
+        );
+        const createFinalCheckoutFormData = {
+          user: user?._id,
+          shippingAddress: getCheckoutFormData.shippingAddress,
+          orderItems: cartItems.map((item) => ({
+            qty: 1,
+            product: item.productID,
+          })),
+          paymentMethod: "stripe",
+          totalPrice: cartItems.reduce(
+            (total, item) => item.productID.price + total,
+            0
+          ),
+          isPaid: true,
+          isProcessing: true,
+          paidAt: new Date(),
+        };
+        const res = await createNewOrder(createFinalCheckoutFormData);
+        if (res.success) {
+          setOrderSuccess(true);
+          setIsOrderProcessing(false);
+        } else {
+          setOrderSuccess(false);
+          setIsOrderProcessing(false);
+        }
+      }
+    }
+    createFinalorder();
+  }, [params.get("status"), cartItems]);
 
   function handleSelectedAddress(getAddress) {
     if (getAddress._id === selectedAddress) {
@@ -55,6 +101,7 @@ export default function Checkout() {
       },
     });
   }
+
   async function handleCheckout() {
     const stripe = await stripePromise;
 
@@ -80,7 +127,31 @@ export default function Checkout() {
 
     console.log(error);
   }
+  if (orderSuccess) {
+    return (
+      <section className="h-screen bg-gray-200 mt-[90px]">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto mt-8 max-w-screen-xl px-4 sm:px-6 lg:px-8 ">
+            <div className="bg-white shadow">
+              <div className="px-4 py-6 sm:px-8 sm:py-10 flex flex-col gap-5">
+                <h1 className="font-bold text-lg text-black">
+                  Your payment is successfull and you will be redirected to
+                  orders page in 2 seconds !
+                </h1>
+                <button className="disabled:opacity-50 mt-5 w-full inline-block bg-black px-5 py-3 text-md font-medium uppercase tracking-wide bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
+                  View You Orders
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
+  if (isOrderProcessing) {
+    return new Promise((resolve) => setTimeout(resolve, 3000));
+  }
   return (
     <div>
       <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32 mt-[80px]">
