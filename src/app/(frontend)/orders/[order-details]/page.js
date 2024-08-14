@@ -30,9 +30,9 @@ export default function OrderDetails() {
   console.log("Current order details:", orderDetails);
 
   return (
-    <div className="py-14 px-4 md:px-6 mt-10">
+    <div className="py-14 px-4 md:px-6 mt-[90px]">
       <div className="flex justify-start items-start space-y-2 flex-col">
-        <h1 className="text-3xl lg:text-4xl font-bold leading-7 lg:leading-9 text-black">
+        <h1 className="text-3xl lg:text-4xl font-bold leading-7 lg:leading-9 text-red-600">
           Order #{orderDetails && orderDetails._id}
         </h1>
         <p className="text-base font-medium leading-6 text-black">
@@ -96,8 +96,8 @@ export default function OrderDetails() {
                   <p className="text-base leading-5 text-black">Free</p>
                 </div>
                 <div className="flex justify-between w-full">
-                  <p className="text-base leading-5 text-black">Subtotal</p>
-                  <p className="text-base leading-5 text-black">
+                  <p className="text-base leading-5 text-red-600">Subtotal</p>
+                  <p className="text-base leading-5 text-red-600">
                     ${orderDetails && orderDetails.totalPrice}
                   </p>
                 </div>
@@ -145,7 +145,7 @@ export default function OrderDetails() {
           </div>
           <button
             onClick={() => router.push(`/`)}
-            className="mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+            className="mt-5 mr-5 inline-block text-red-600 px-5 py-3 text-lg font-medium uppercase tracking-wide bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
           >
             Shop Again
           </button>

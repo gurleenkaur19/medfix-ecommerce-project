@@ -23,11 +23,9 @@ export default function Orders() {
     if (user !== null) extractAllOrders();
   }, [user]);
 
-  console.log(allOrdersForUser);
-
   return (
     <section>
-      <div className="mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 mt-[80px]">
         <div className="mt-8 mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
           <div>
             <div className="px-4 py-6 sm:px-8 sm:py-10">
@@ -47,7 +45,7 @@ export default function Orders() {
                             <p className="mr-3 text-sm font-medium text-gray-900">
                               Total paid amount
                             </p>
-                            <p className="mr-3 text-2xl  font-semibold text-gray-900">
+                            <p className="mr-3 text-2xl  font-semibold text-red-600">
                               ${item.totalPrice}
                             </p>
                           </div>
@@ -68,14 +66,14 @@ export default function Orders() {
                           ))}
                         </div>
                         <div className="flex gap-5">
-                          <button className="disabled:opacity-50 mt-5 mr-5  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide">
+                          <button className="disabled:opacity-50 mt-5 mr-5  inline-block bg-red-600 text-white px-5 py-3 text-xs font-medium uppercase tracking-wide">
                             {item.isProcessing
                               ? "Order is Processing"
                               : "Order is delivered"}
                           </button>
                           <button
                             onClick={() => router.push(`/orders/${item._id}`)}
-                            className=" mt-5 mr-5  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+                            className=" mt-5 mr-5  inline-block bg-red-600 text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
                           >
                             View Order Details
                           </button>

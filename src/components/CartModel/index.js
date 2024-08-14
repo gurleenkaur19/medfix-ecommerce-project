@@ -120,7 +120,7 @@ export default function CartModal() {
               router.push("/cart");
               setShowCartModel(false);
             }}
-            className="mt-1.5 w-full inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+            className="mt-1.5 w-full inline-block px-5 py-3 text-sm font-medium uppercase tracking-wide bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
           >
             Go to Cart
           </Button>
@@ -131,7 +131,7 @@ export default function CartModal() {
               router.push("/checkout");
               setShowCartModel(false);
             }}
-            className="mt-1.5 w-full inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+            className="mt-1.5 w-full inline-block px-5 py-3 text-sm font-medium uppercase tracking-wide bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
           >
             Checkout
           </Button>
@@ -142,7 +142,7 @@ export default function CartModal() {
                 router.push("/");
                 setShowCartModel(false);
               }}
-              className="font-medium text-grey"
+              className="font-medium bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
             >
               Continue Shopping
               <span aria-hidden="true"> &rarr;</span>
