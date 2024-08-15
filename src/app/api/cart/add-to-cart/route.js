@@ -33,8 +33,6 @@ export async function POST(req) {
         });
       }
 
-      console.log(productID, userID);
-
       const isCurrentCartItemAlreadyExists = await Cart.find({
         productID: productID,
         userID: userID,
@@ -51,8 +49,6 @@ export async function POST(req) {
       }
 
       const saveProductToCart = await Cart.create(data);
-
-      console.log(saveProductToCart);
 
       if (saveProductToCart) {
         return NextResponse.json({

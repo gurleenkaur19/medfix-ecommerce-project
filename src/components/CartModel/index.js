@@ -110,7 +110,9 @@ export default function CartModal() {
               </li>
             ))}
           </ul>
-        ) : null
+        ) : (
+          <div className="text-center text-gray-500">Your cart is empty.</div>
+        )
       }
       buttonComponent={
         <Fragment>

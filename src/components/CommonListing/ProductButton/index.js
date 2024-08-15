@@ -7,6 +7,7 @@ import { GlobalContext } from "@/context";
 import { deleteProduct } from "@/services/product";
 import { addToCart } from "@/services/cart";
 import ComponentLevelLoader from "@/components/Loader/componentLevelLoader";
+import toast from "react-hot-toast";
 
 export default function ProductButton({ item }) {
   const pathName = usePathname();
@@ -25,6 +26,7 @@ export default function ProductButton({ item }) {
 
   async function handleDeleteProduct(event, item) {
     event.stopPropagation();
+
     setComponentLevelLoader({ loading: true, id: item._id });
 
     const res = await deleteProduct(item._id);
@@ -32,7 +34,10 @@ export default function ProductButton({ item }) {
     if (res && res.success) {
       setComponentLevelLoader({ loading: false, id: "" });
       setErrorMessage(res.message);
-      router.refresh();
+
+      toast.success("Product deleted successfully");
+
+      router.refresh("/admin-view/all-products");
     } else {
       setComponentLevelLoader({ loading: false, id: "" });
       setErrorMessage(res.message);

@@ -12,11 +12,8 @@ export default function OrderDetails() {
   const router = useRouter();
 
   async function extractOrderDetails() {
-    console.log("Fetching order details for:", params["order-details"]);
     const res = await getOrderDetails(params["order-details"]);
-
     if (res.success) {
-      console.log("Order details fetched successfully:", res.data);
       setOrderDetails(res.data);
     } else {
       console.error("Failed to fetch order details:", res);
@@ -26,8 +23,6 @@ export default function OrderDetails() {
   useEffect(() => {
     extractOrderDetails();
   }, []);
-
-  console.log("Current order details:", orderDetails);
 
   return (
     <div className="py-14 px-4 md:px-6 mt-[90px]">

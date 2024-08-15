@@ -1,7 +1,7 @@
 "use client";
 
 import { GlobalContext } from "@/context";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import InputComponent from "@/components/FormElements/InputComponent";
 import SelectComponent from "@/components/FormElements/SelectComponent";
 import TileComponent from "@/components/FormElements/TileComponent";
@@ -17,7 +17,6 @@ import {
   getStorage,
   uploadBytesResumable,
 } from "firebase/storage";
-import { useState } from "react";
 import { ref } from "firebase/storage";
 import { addNewProduct, updateProduct } from "@/services/product";
 import { useRouter } from "next/navigation";
@@ -32,6 +31,7 @@ const createUniqueFileName = (getFile) => {
 
   return `${getFile.name}-${timestamp}-${randomStringValue}`;
 };
+
 async function helperForUploadingImageToFirebase(file) {
   const getFileName = createUniqueFileName(file);
   const storageRef = ref(storage, `ecommerce/${getFileName}`);
@@ -53,6 +53,7 @@ async function helperForUploadingImageToFirebase(file) {
     );
   });
 }
+
 const initialFormData = {
   name: "",
   price: 0,
@@ -109,8 +110,36 @@ export default function AdminAddNewProduct() {
     });
   }
 
+  function validateFormData(data) {
+    const requiredFields = [
+      "name",
+      "price",
+      "description",
+      "category",
+      "deliveryInfo",
+      "imageUrl",
+      "onSale",
+      "priceDrop",
+    ];
+
+    for (const field of requiredFields) {
+      if (!data[field]) {
+        return `The field ${field} is required.`;
+      }
+    }
+
+    return null;
+  }
+
   async function handleAddProduct() {
     setErrorMessage(null);
+    const validationError = validateFormData(formData);
+
+    if (validationError) {
+      setErrorMessage(validationError);
+      return;
+    }
+
     setComponentLevelLoader({ loading: true, id: "" });
     const res =
       currentUpdatedProduct !== null
@@ -129,7 +158,6 @@ export default function AdminAddNewProduct() {
     } else {
       setComponentLevelLoader({ loading: false, id: "" });
       setErrorMessage(res.message);
-      console.log(res.message);
     }
   }
 

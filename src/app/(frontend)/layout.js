@@ -3,6 +3,7 @@ import GlobalState from "../../context/index";
 import "./globals.css";
 
 import ClientLayout from "./clientLayout.js";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +17,10 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <GlobalState>
           <main className="flex min-h-screen flex-col ">
-            <ClientLayout>{children}</ClientLayout>
+            <ClientLayout>
+              <Toaster position="top-right" />
+              {children}
+            </ClientLayout>
           </main>
         </GlobalState>
       </body>

@@ -11,7 +11,7 @@ export async function DELETE(req) {
     const authHeader = req.headers.get("Authorization");
     const isAuthUser = await authorizationService(authHeader, ["admin"]);
 
-    if (isAuthUser === "admin") {
+    if (isAuthUser) {
       const { searchParams } = new URL(req.url);
       const id = searchParams.get("id");
 

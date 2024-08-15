@@ -59,6 +59,7 @@ export default function Register() {
     }
 
     if (errors) {
+      setComponentLevelLoader({ loading: false, id: "" });
       return;
     }
 
@@ -99,7 +100,7 @@ export default function Register() {
                   : "Sign up for an account"}
               </p>
               <div className="font-semibold mt-2 text-lg">
-                {errorMessage && (
+                {!isRegistered && errorMessage && (
                   <div
                     className="w-full bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
                     role="alert"

@@ -27,9 +27,11 @@ export default function CommonListing({ data }) {
                   <article
                     key={item._id}
                     className="relative flex flex-col overflow-hidden border cursor-pointer"
-                    onClick={() => handleArticleClick(item)}
                   >
-                    <ProductTile item={item} />
+                    <ProductTile
+                      item={item}
+                      onClick={() => handleArticleClick(item)}
+                    />
                     <ProductButton item={item} />
                   </article>
                 ))

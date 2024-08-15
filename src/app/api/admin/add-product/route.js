@@ -24,7 +24,7 @@ export async function POST(req) {
     const authHeader = req.headers.get("Authorization");
     const isAuthUser = await authorizationService(authHeader, ["admin"]);
 
-    if (isAuthUser === "admin") {
+    if (isAuthUser) {
       const extractData = await req.json();
       const {
         name,

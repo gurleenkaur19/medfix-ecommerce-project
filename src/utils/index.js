@@ -1,10 +1,5 @@
 export const navOptions = [
   {
-    id: "home",
-    label: "Home",
-    path: "/",
-  },
-  {
     id: "listing",
     label: "All Products",
     path: "/product/listing/all-products",
@@ -198,16 +193,16 @@ export const AvailablePackaging = [
 ];
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyBGTFhKTHRrWWrnhocztCb9dWQ_P500pHQ",
-  authDomain: "next-js-ecommerce-34c3c.firebaseapp.com",
-  projectId: "next-js-ecommerce-34c3c",
-  storageBucket: "next-js-ecommerce-34c3c.appspot.com",
-  messagingSenderId: "224389133172",
-  appId: "1:224389133172:web:3e55d6420f33b3a3463221",
-  measurementId: "G-G1Q0RBRZVH",
+  apiKey: "AIzaSyD28lApmAS2w7MhwcQQ7G3jj-DvOf4ItlY",
+  authDomain: "medportal-e-commerce-project.firebaseapp.com",
+  projectId: "medportal-e-commerce-project",
+  storageBucket: "medportal-e-commerce-project.appspot.com",
+  messagingSenderId: "100097169552",
+  appId: "1:100097169552:web:cca39750ef10fb75d46015",
 };
 
-export const firebaseStorageURL = "gs://next-js-ecommerce-34c3c.appspot.com";
+export const firebaseStorageURL =
+  "gs://medportal-e-commerce-project.appspot.com";
 
 export const addNewAddressFormControls = [
   {

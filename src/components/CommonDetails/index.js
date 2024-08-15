@@ -3,6 +3,7 @@ import ComponentLevelLoader from "@/components/Loader/componentLevelLoader";
 import { useContext } from "react";
 import { GlobalContext } from "@/context";
 import { addToCart } from "@/services/cart";
+import { useRouter } from "next/navigation";
 
 export default function CommonDetails({ item }) {
   const {
@@ -11,6 +12,7 @@ export default function CommonDetails({ item }) {
     user,
     setShowCartModel,
   } = useContext(GlobalContext);
+  const router = useRouter();
 
   if (!item) {
     return (
@@ -19,11 +21,17 @@ export default function CommonDetails({ item }) {
   }
 
   async function handleAddToCart(getItem) {
-    if (!getItem || !getItem._id || !user || !user._id) {
-      console.error("Invalid item or user data");
+    if (!user || (user.role !== "customer" && user.role !== "admin")) {
+      router.push("/login");
+      return;
+    }
+
+    if (!getItem || !getItem._id) {
+      console.error("Invalid item data");
       setComponentLevelLoader({ loading: false, id: "" });
       return;
     }
+
     setComponentLevelLoader({ loading: true, id: "" });
 
     const res = await addToCart({ productID: getItem._id, userID: user._id });
