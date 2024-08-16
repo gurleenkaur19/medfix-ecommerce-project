@@ -1,6 +1,7 @@
-import { NextResponse } from "next/server";
 import connectToDB from "@/database";
 import { authorizationService } from "@/utils/authVerify";
+import Order from "@/models/order";
+import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
@@ -9,11 +10,35 @@ export async function GET(req) {
     await connectToDB();
     const authHeader = req.headers.get("Authorization");
     const isAuthUser = await authorizationService(authHeader, ["admin"]);
+
+    if (isAuthUser) {
+      const getAllOrders = await Order.find({})
+        .populate("orderItems.product")
+        .populate("user");
+
+      if (getAllOrders) {
+        return NextResponse.json({
+          success: true,
+          data: getAllOrders,
+        });
+      } else {
+        return NextResponse.json({
+          success: false,
+          message:
+            "failed to fetch the orders ! Please try again after some time.",
+        });
+      }
+    } else {
+      return NextResponse.json({
+        success: false,
+        message: "You are not autorized !",
+      });
+    }
   } catch (e) {
     console.log(e);
     return NextResponse.json({
       success: false,
-      message: "Something went wrong! Please try again later.",
+      message: "Something went wrong ! Please try again later",
     });
   }
 }

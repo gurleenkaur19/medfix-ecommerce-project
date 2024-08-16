@@ -2,7 +2,7 @@
 
 export default function Unauthorized() {
   return (
-    <section className="h-screen bg-gray-200">
+    <section className="h-screen bg-gray-200 mt-[80px]">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mt-8 max-w-screen-xl px-4 sm:px-6 lg:px-8 ">
           <div className="bg-white shadow">
