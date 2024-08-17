@@ -4,6 +4,7 @@ import CommonCart from "@/components/CommonCart";
 import { GlobalContext } from "@/context";
 import { deleteFromCart, getAllCartItems } from "@/services/cart";
 import { useContext, useEffect } from "react";
+import { toast } from "react-hot-toast";
 
 export default function Cart() {
   const {
@@ -50,11 +51,13 @@ export default function Cart() {
     const res = await deleteFromCart(getCartItemID);
 
     if (res.success) {
+      toast.success("Item deleted successfully");
       setComponentLevelLoader({ loading: false, id: "" });
 
       extractAllCartItems();
     } else {
       setComponentLevelLoader({ loading: false, id: getCartItemID });
+      toast.error("Failed to delete item");
     }
   }
 

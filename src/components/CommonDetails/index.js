@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { GlobalContext } from "@/context";
 import { addToCart } from "@/services/cart";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 export default function CommonDetails({ item }) {
   const {
@@ -37,9 +38,11 @@ export default function CommonDetails({ item }) {
     const res = await addToCart({ productID: getItem._id, userID: user._id });
 
     if (res.success) {
+      toast.success("Item added to cart successfully!");
       setComponentLevelLoader({ loading: false, id: "" });
       setShowCartModel(true);
     } else {
+      toast.error("Failed to add to cart. Please try again later.");
       setComponentLevelLoader({ loading: false, id: "" });
       setShowCartModel(true);
     }

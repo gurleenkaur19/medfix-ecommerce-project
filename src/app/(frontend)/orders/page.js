@@ -4,6 +4,7 @@ import { GlobalContext } from "@/context";
 import { getAllOrdersForUser } from "@/services/order";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
+import { toast } from "react-hot-toast";
 
 export default function Orders() {
   const { user, allOrdersForUser, setAllOrdersForUser } =
@@ -16,9 +17,11 @@ export default function Orders() {
 
     if (res.success) {
       setAllOrdersForUser(res.data);
+      toast.success("Orders fetched successfully!");
+    } else {
+      toast.error("Failed to fetch orders. Please try again!");
     }
   }
-
   useEffect(() => {
     if (user !== null) extractAllOrders();
   }, [user]);

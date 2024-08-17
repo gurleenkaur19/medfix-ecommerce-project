@@ -1,6 +1,7 @@
 "use client";
 
 import { GlobalContext } from "@/context";
+import { toast } from "react-hot-toast";
 import { useContext, useEffect, useState } from "react";
 import InputComponent from "@/components/FormElements/InputComponent";
 import SelectComponent from "@/components/FormElements/SelectComponent";
@@ -147,6 +148,7 @@ export default function AdminAddNewProduct() {
     if (res && res.success) {
       setComponentLevelLoader({ loading: false, id: "" });
       setErrorMessage(res.message);
+      toast.success("Product added successfully");
 
       setFormData(initialFormData);
       setCurrentUpdatedProduct(null);
@@ -154,6 +156,7 @@ export default function AdminAddNewProduct() {
         router.push("/admin-view/all-products");
       }, 3000);
     } else {
+      toast.error("Failed to add product");
       setComponentLevelLoader({ loading: false, id: "" });
       setErrorMessage(res.message);
     }

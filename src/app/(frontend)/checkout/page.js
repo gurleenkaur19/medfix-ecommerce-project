@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 import { callStripeSession } from "@/services/stripe";
 import { createNewOrder } from "@/services/order";
+import { toast } from "react-hot-toast";
 
 export default function Checkout() {
   const {
@@ -67,9 +68,11 @@ export default function Checkout() {
         };
         const res = await createNewOrder(createFinalCheckoutFormData);
         if (res.success) {
+          toast.success("Order created successfully");
           setOrderSuccess(true);
           setIsOrderProcessing(false);
         } else {
+          toast.error("Failed to create Order");
           setOrderSuccess(false);
           setIsOrderProcessing(false);
         }

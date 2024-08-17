@@ -7,6 +7,7 @@ import { Button } from "@headlessui/react";
 import { getAllCartItems, deleteFromCart } from "@/services/cart";
 import ComponentLevelLoader from "@/components/Loader/componentLevelLoader";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 export default function CartModal() {
   const {
@@ -58,9 +59,11 @@ export default function CartModal() {
 
     if (res.success) {
       setComponentLevelLoader({ loading: false, id: "" });
+      toast.success("Item removed from cart successfully!");
 
       extractAllCartItems();
     } else {
+      toast.error("Failed to remove item from cart!");
       setComponentLevelLoader({ loading: false, id: getCartItemID });
     }
   }

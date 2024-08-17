@@ -41,7 +41,7 @@ export default function ProductButton({ item }) {
     } else {
       setComponentLevelLoader({ loading: false, id: "" });
       setErrorMessage(res.message);
-      console.log(res.message);
+      // console.log(res.message);
     }
   }
 
@@ -58,9 +58,11 @@ export default function ProductButton({ item }) {
       const res = await addToCart({ productID: getItem._id, userID: user._id });
 
       if (res && res.success) {
+        toast.success("Added to cart successfully");
         setComponentLevelLoader({ loading: false, id: "" });
         setShowCartModel(true);
       } else {
+        toast.error("Failed to add to cart");
         setComponentLevelLoader({ loading: false, id: "" });
         setShowCartModel(true);
         console.error("Failed to add to cart:", res);

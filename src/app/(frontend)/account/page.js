@@ -12,6 +12,7 @@ import {
 import { addNewAddressFormControls } from "@/utils";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 
 export default function Account() {
   const {
@@ -48,6 +49,7 @@ export default function Account() {
 
     if (res.success) {
       setComponentLevelLoader({ loading: false, id: "" });
+      toast.success("Address added successfully");
 
       setAddressFormData({
         fullName: "",
@@ -60,6 +62,7 @@ export default function Account() {
       setCurrentEditedAddressId(null);
     } else {
       setComponentLevelLoader({ loading: false, id: "" });
+      toast.error("Failed to add address");
 
       setAddressFormData({
         fullName: "",
@@ -90,10 +93,13 @@ export default function Account() {
 
     if (res.success) {
       setComponentLevelLoader({ loading: false, id: "" });
+      toast.success("Address deleted successfully");
 
       extractAllAddresses();
     } else {
       setComponentLevelLoader({ loading: false, id: "" });
+
+      toast.error("Failed to delete address");
     }
   }
 
