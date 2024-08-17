@@ -118,8 +118,6 @@ export default function AdminAddNewProduct() {
       "category",
       "deliveryInfo",
       "imageUrl",
-      "onSale",
-      "priceDrop",
     ];
 
     for (const field of requiredFields) {
