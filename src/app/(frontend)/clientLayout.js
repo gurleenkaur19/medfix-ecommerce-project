@@ -11,10 +11,10 @@ export default function ClientLayout({ children }) {
     pathname === "/adminRegister";
 
   return (
-    <>
+    <div className="flex flex-col h-screen">
       {!isAuthPage && <NavBar />}
-      {children}
+      <div className="flex-grow"> {children}</div>
       {!isAuthPage && <Footer />}
-    </>
+    </div>
   );
 }
