@@ -1,13 +1,11 @@
 import { NextResponse } from "next/server";
-import connectToDB from "../../../../database/index";
-import Product from "@/models/product";
+import { getAllProducts } from "@/database/products";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req) {
   try {
-    await connectToDB();
-    const extractAllProducts = await Product.find({});
+    const extractAllProducts = await getAllProducts();
     if (extractAllProducts) {
       return NextResponse.json({
         success: true,

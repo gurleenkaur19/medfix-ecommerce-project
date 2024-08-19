@@ -3,6 +3,7 @@ import connectToDB from "@/database";
 import { NextResponse } from "next/server";
 import Product from "@/models/product";
 import joi from "joi";
+import { authorizationService } from "@/utils/authVerify";
 
 const AddNewProductSchema = joi.object({
   name: joi.string().required(),
@@ -20,8 +21,10 @@ export async function POST(req) {
   try {
     await connectToDB();
 
-    const user = "admin";
-    if (user === "admin") {
+    const authHeader = req.headers.get("Authorization");
+    const isAuthUser = await authorizationService(authHeader, ["admin"]);
+
+    if (isAuthUser) {
       const extractData = await req.json();
       const {
         name,

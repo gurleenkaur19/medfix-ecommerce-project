@@ -1,10 +1,5 @@
 export const navOptions = [
   {
-    id: "home",
-    label: "Home",
-    path: "/",
-  },
-  {
     id: "listing",
     label: "All Products",
     path: "/product/listing/all-products",
@@ -198,13 +193,50 @@ export const AvailablePackaging = [
 ];
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyBGTFhKTHRrWWrnhocztCb9dWQ_P500pHQ",
-  authDomain: "next-js-ecommerce-34c3c.firebaseapp.com",
-  projectId: "next-js-ecommerce-34c3c",
-  storageBucket: "next-js-ecommerce-34c3c.appspot.com",
-  messagingSenderId: "224389133172",
-  appId: "1:224389133172:web:3e55d6420f33b3a3463221",
-  measurementId: "G-G1Q0RBRZVH",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: "medportal-e-commerce-project.appspot.com",
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
-export const firebaseStorageURL = "gs://next-js-ecommerce-34c3c.appspot.com";
+export const firebaseStorageURL = process.env.REACT_APP_FIREBASE_STORAGE_URL;
+
+export const addNewAddressFormControls = [
+  {
+    id: "fullName",
+    type: "input",
+    placeholder: "Enter your full name",
+    label: "Full Name",
+    componentType: "input",
+  },
+  {
+    id: "address",
+    type: "input",
+    placeholder: "Enter your full address",
+    label: "Address",
+    componentType: "input",
+  },
+  {
+    id: "city",
+    type: "input",
+    placeholder: "Enter your city",
+    label: "City",
+    componentType: "input",
+  },
+  {
+    id: "country",
+    type: "input",
+    placeholder: "Enter your country",
+    label: "Country",
+    componentType: "input",
+  },
+  {
+    id: "postalCode",
+    type: "input",
+    placeholder: "Enter your postal code",
+    label: "Postal Code",
+    componentType: "input",
+  },
+];

@@ -43,13 +43,18 @@ export async function POST(req) {
       });
     }
 
+    // Ensure TOKEN_SECRET is set
+    if (!process.env.TOKEN_SECRET) {
+      throw new Error("TOKEN_SECRET is not set in environment variables");
+    }
+
     const token = jwt.sign(
       {
         id: checkUser._id,
         email: checkUser?.email,
         role: checkUser?.role,
       },
-      "default_secret_key",
+      process.env.TOKEN_SECRET,
       { expiresIn: "1d" }
     );
 
@@ -69,7 +74,7 @@ export async function POST(req) {
       finalData,
     });
   } catch (e) {
-    console.log("Error while logging In. Please try again");
+    console.log(e);
 
     return NextResponse.json({
       success: false,

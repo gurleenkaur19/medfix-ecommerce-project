@@ -5,6 +5,7 @@ import { GlobalContext } from "../../context/index";
 import CommonModal from "../CommonModal";
 import { usePathname, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import CartModal from "../CartModel";
 
 function NavItems({ isModelView = false, isAdminView, router }) {
   return (
@@ -52,11 +53,11 @@ function NavBar() {
     setUser,
     currentUpdatedProduct,
     setCurrentUpdatedProduct,
+    showCartModel,
+    setShowCartModel,
   } = useContext(GlobalContext);
   const pathName = usePathname();
   const router = useRouter();
-
-  console.log(user, isAuthUser, "navbar");
 
   useEffect(() => {
     if (
@@ -69,7 +70,7 @@ function NavBar() {
   function handleLogout() {
     setIsAuthUser(false);
     setUser(null);
-    Cookies.remove("token ");
+    Cookies.remove("token");
     localStorage.clear();
     router.push("/");
   }
@@ -95,10 +96,16 @@ function NavBar() {
           <div className="flex md:order-2 gap-2">
             {!isAdminView && isAuthUser ? (
               <Fragment>
-                <button className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
+                <button
+                  onClick={() => router.push("/account")}
+                  className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+                >
                   Account
                 </button>
-                <button className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
+                <button
+                  className="bg-transparent hover:bg-red-500 text-red-600 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+                  onClick={() => setShowCartModel(true)}
+                >
                   Cart
                 </button>
               </Fragment>
@@ -191,6 +198,7 @@ function NavBar() {
         show={showNavModal}
         setShow={setShowNavModal}
       />
+      {showCartModel && <CartModal />}
     </>
   );
 }

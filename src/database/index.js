@@ -6,8 +6,7 @@ const configOptions = {
 };
 
 const connectToDB = async () => {
-  const connectionUrl =
-    "mongodb+srv://gurleenkaurkhurpa19:gurleenkaur@cluster0.dvmtmlj.mongodb.net/";
+  const connectionUrl = process.env.MONGODB_URI;
   mongoose
     .connect(connectionUrl, configOptions)
     .then(() => console.log("MedFix database connected successfully!"))
