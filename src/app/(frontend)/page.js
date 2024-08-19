@@ -34,7 +34,7 @@ export default function Home() {
 
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24 text-red-500 ">
+      <main className="flex min-h-screen flex-col items-center justify-between p-24 text-red-500 mt-[25px]">
         <section className="">
           <div className="grid max-w-screen-xl px-4 py-8 mx-suto  lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
             <div className="mr-auto place-self-center lg:col-span-7">
