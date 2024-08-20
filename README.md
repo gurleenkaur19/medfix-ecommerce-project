@@ -22,8 +22,11 @@ MedFix aims to provide a user-friendly platform for buying medical supplies. It 
 - **Styling**: Tailwind CSS
 - **Notifications**: React Hot Toast
 - **Backend**: Node.js, Express.js
-- **Database**: MongoDB (via Mongoose)
+- **Database**: MongoDB (via Mongoose), firebase
 - **Authentication**: JSON Web Tokens (JWT)
+- **Payment Gateway**: Stripe
+- **Validation**: Joi
+- **Utilities**: js-cookie
 
 ## Installation
 
@@ -92,3 +95,28 @@ MedFix aims to provide a user-friendly platform for buying medical supplies. It 
 
 - The `NavBar` and `Footer` components are only displayed on non-authentication pages.
 - Authentication pages (`/login`, `/register`, `/adminRegister`) have a simplified layout without the navigation and footer elements.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. **Fork the repository.**
+2. **Create your feature branch:**
+
+   ```bash
+   git checkout -b feature/AmazingFeature
+   ```
+
+3. **Commit your changes:**
+
+   ```bash
+   git commit -m 'Add some AmazingFeature'
+   ```
+
+4. **Push to the branch:**
+
+   ```bash
+   git push origin feature/AmazingFeature
+   ```
+
+5. **Open a Pull Request.**
